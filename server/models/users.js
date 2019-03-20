@@ -10,10 +10,13 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 1,
         min: 1
-    }
+    },
+    github_id: String
 });
 
-const User = module.exports = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
 
 module.exports.createUser = function(newUser, callBack){
     bcrypt.genSalt(10, function(err, salt) {

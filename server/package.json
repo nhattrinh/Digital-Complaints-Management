@@ -11,6 +11,7 @@
   "author": "HotDogs Team",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",
@@ -19,6 +20,7 @@
     "mongoose": "^5.4.19",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
+    "passport-github": "^1.1.0",
     "passport-google-oauth20": "^2.0.0",
     "path": "^0.12.7"
   }

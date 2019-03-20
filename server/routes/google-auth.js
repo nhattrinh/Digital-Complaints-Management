@@ -6,12 +6,12 @@ const User =            require('../models/users');
 const jwt =             require('jsonwebtoken');
 
 const config = require('../config/database');
-const GoogleStrategy = require('../config/google');
+const GoogleCredentials = require('../config/google');
 
 const callback_url = process.env.ENDPOINT_URL || "http://localhost:3001";
 
 passport.use(new GoogleStrategy({
-  ...GoogleStrategy
+  ...GoogleCredentials
 },
   (accessToken, refreshToken, profile, done) => {
     process.nextTick(function () {
@@ -41,10 +41,7 @@ router.get('/auth/google/callback',
             var newUser = new User({
                 name: displayName,
                 email: emails[0].value,
-                profilePic: photos[0].value,
                 google_id: id,
-                address: '',
-                phoneNumber: ''
             });
 
             newUser.save();

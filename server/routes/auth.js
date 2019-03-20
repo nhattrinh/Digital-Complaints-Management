@@ -4,7 +4,7 @@ const router = express.Router();
 const passport = require('passport');
 const jwt =  require('jsonwebtoken');
 
-const User = mongoose.model('User');
+const User = require('../models/users');
 
 router.post('/register', (req, res) => {
     let { name, email, password } = req.body;
