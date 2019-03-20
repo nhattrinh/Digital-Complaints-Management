@@ -10,12 +10,14 @@ let { PORT } = process.env;
 
 const mongoose = require('mongoose');
 const config  = require ('./config/database');
-mongoose.connect(config.database);
+mongoose.connect(
+    config.database, {
+        useNewUrlParser: true
+    });
 
 const app = express();
 
 app.use(morgan('dev'));
-app.use(expressValidator());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -24,4 +26,4 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(cors());
 
-app.listen(PORT || 3001, () => console.log(`Server on port ${PORT || 3001}`));
+app.listen(PORT || 3001, () => console.log(`Server started on port ${PORT || 3001}`));
