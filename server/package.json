@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch .",
-    "start": "node app.js"
+    "start": "node app.js",
+    "initial-dev": "npm install && npm run dev"
   },
   "author": "HotDogs Team",
   "license": "ISC",
