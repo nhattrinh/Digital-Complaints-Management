@@ -28,18 +28,13 @@ import {
         <div>
           <Navbar style ={styles.background} expand="md">
           <NavbarBrand>
-              <NavLink style={{font: '40px', color: 'white'}} href="/">DCM</NavLink>
+              <NavLink style={{fontSize: '30px', color: 'white'}} href="/">DCM- Digital Complaint Management</NavLink>
           </NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
-
-
                 <NavItem>
-                  <NavLink style={styles.item} href="/contact/">COMPLAINTS</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink style={styles.item} href="/help/">RESOLVED ISSUES</NavLink>
+                  <NavLink style={styles.item} href="/resolve/">RESOLVED ISSUES</NavLink>
                 </NavItem>
               </Nav>
               <Nav className="ml">
