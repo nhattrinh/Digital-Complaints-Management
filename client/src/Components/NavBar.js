@@ -36,10 +36,10 @@ import {
 
 
                 <NavItem>
-                  <NavLink style={styles.item} href="/contact/">COMPLAINTS</NavLink>
+                  <NavLink style={styles.item} href="/complaints/">COMPLAINTS</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink style={styles.item} href="/help/">RESOLVED ISSUES</NavLink>
+                  <NavLink style={styles.item} href="/resolved/">RESOLVED ISSUES</NavLink>
                 </NavItem>
               </Nav>
               <Nav className="ml">

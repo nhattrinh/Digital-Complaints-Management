@@ -27,8 +27,8 @@ export default class Home extends Component{
                       We aim to reduce complaint resolution time<br/>
                       <br/>
                       <br/>
-                      Don't have an account? Click below to get started<br/>
-                      <br/>
+                      Don't have an account? Click below to get started
+
                     </h4>
                     <SignUp/>
                   </MDBCol>
