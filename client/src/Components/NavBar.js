@@ -8,6 +8,7 @@ import {
     NavItem,
     NavLink,
  } from 'reactstrap';
+ import Login from './Login'
 
   export default class NavBar extends Component {
     constructor(props) {
@@ -39,7 +40,7 @@ import {
               </Nav>
               <Nav className="ml">
               <NavItem>
-                  <NavLink style={styles.item} href="/login/">LOG IN</NavLink>
+                  <NavLink style={styles.item}><Login/></NavLink>
               </NavItem>
               </Nav>
             </Collapse>
