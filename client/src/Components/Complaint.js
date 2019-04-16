@@ -3,7 +3,7 @@ import {  MDBRow, MDBCol, MDBIcon, MDBBtn, MDBInput, MDBContainer } from "mdbrea
 export default class Complain extends Component {
   render() {
     return (
-      <MDBContainer> 
+      <MDBContainer>
       <section className="contact-section my-5">
         <MDBRow>
           <MDBCol>
@@ -11,11 +11,11 @@ export default class Complain extends Component {
               <MDBInput
                 type="textarea"
                 id="form-contact-message"
-                label="Your message"
+                label="Write New Complaint"
               />
-              
+
               <MDBBtn rounded color="blue">
-                <MDBIcon icon="paper-plane" />
+                Post Complaint    &nbsp; <MDBIcon icon="paper-plane" />
               </MDBBtn>
             </div>
           </MDBCol>

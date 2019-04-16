@@ -12,7 +12,7 @@ export default class Resolve extends Component {
         <MDBCol md="12">
           <h1 className="h1-responsive font-weight-bold text-center my-5">Profile</h1>
           <MDBRow>
-            <MDBCol md="6">                  
+            <MDBCol md="6">
                     <MDBView className="mx-auto">
                       <img
                         src="https://mdbootstrap.com/img/Photos/Avatars/img%20(26).jpg"
@@ -25,9 +25,8 @@ export default class Resolve extends Component {
                       Web Designer
                     </h6>
                     <p className="font-weight-normal">
-                      <MDBIcon icon="quote-left" className="pr-2" />
-                      Lorem ipsum dolor sit amet, consectetur adipisicing
-                      elit. Quod eos id officiis hic tenetur.
+                      "About me Section Here"
+
                     </p>
             </MDBCol>
             <MDBCol md="6"><Complaint/></MDBCol>
@@ -38,13 +37,13 @@ export default class Resolve extends Component {
         <MDBRow>
         <MDBCol md="12">
             <h2 className="h1-responsive font-weight-bold text-center my-5">
-            Recent complaint posts
+            Recent Complaint Posts
             </h2>
             <MDBMedia>
                 <MDBMedia left href="#" className="mr-3">
                 <MDBMedia object src="https://mdbootstrap.com/img/Photos/Others/placeholder4.jpg" alt="Generic placeholder image" />
                 </MDBMedia>
-            
+
                 <MDBMedia body>
                     <MDBMedia heading>
                         <strong>Description</strong>
@@ -54,7 +53,7 @@ export default class Resolve extends Component {
                     <MDBBtn color="primary" size="md">
                     Read More
                     </MDBBtn>
-                
+
                     <MDBMedia className="mt-3">
                         <MDBMedia left href="#" className="pr-3">
                             <MDBMedia object src="https://mdbootstrap.com/img/Photos/Others/placeholder4.jpg" alt="Generic placeholder image" />
@@ -77,4 +76,3 @@ export default class Resolve extends Component {
 );
 }
 }
-
