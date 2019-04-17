@@ -13,10 +13,18 @@ const userSchema = new mongoose.Schema({
     },
     github_id: String
 });
+const complainSchema = new mongoose.Schema({
+    complain_id: String,
+    name: String,
+    description: String,
+});
 
 const User = mongoose.model('User', userSchema);
 
+const Complain = mongoose.model('Complain', complainSchema);
+
 module.exports = User;
+module.exports = Complain;
 
 module.exports.createUser = function(newUser, callBack){
     bcrypt.genSalt(10, function(err, salt) {
@@ -33,4 +41,8 @@ module.exports.comparePassword = function(candidatePassword, hash, callback) {
         if (err) throw err;
         callback(null, isMatch);
     });
+}
+
+module.exports.uploadComplain = function(newComplain, callBack){
+    
 }

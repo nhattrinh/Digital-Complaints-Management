@@ -5,7 +5,7 @@ const morgan  = require('morgan');
 const cors = require('cors');
 const app = express();
 
-let { auth, githubAuth, googleAuth } = require('./routes');
+let { auth,complain, githubAuth, googleAuth } = require('./routes');
 
 require('dotenv').config();
 
@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
 app.use(auth);
+app.use(complain);
 app.use(githubAuth);
 app.use(googleAuth);
 
