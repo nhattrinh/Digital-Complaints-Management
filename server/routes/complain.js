@@ -17,7 +17,7 @@ router.post('/complain', (req, res) => {
                 description:description
             });
 
-            User.uploadComplain(newComplain, function(err, complain_id){
+            Complain.uploadComplain(newComplain, function(err, complain_id){
                 if(err) {
                     return res.status(500).json({
                         success: false, 

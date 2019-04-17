@@ -44,5 +44,5 @@ module.exports.comparePassword = function(candidatePassword, hash, callback) {
 }
 
 module.exports.uploadComplain = function(newComplain, callBack){
-    
+    newComplain.save(callBack);
 }
