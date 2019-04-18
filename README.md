@@ -1,4 +1,4 @@
 # Digital-Complaints-Management
 
-## Backend Inside AWS EC2 Instance Visualization
+### Our AWS EC2 Instance
 ![](github-resources/backend-visualization.png)
