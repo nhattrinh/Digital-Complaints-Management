@@ -1,0 +1,28 @@
+version: '3.2'
+services:
+  server1:
+      build: ./server
+      tty: true
+      volumes:
+        - './server/src:/code-output-dir'
+  server2:
+      build: ./server
+      tty: true
+      volumes:
+        - './server/src:/code-output-dir'
+  server3:
+      build: ./server
+      tty: true
+      volumes:
+        - './server/src:/code-output-dir'
+  loadbalancer:
+      build: ./load-balancer
+      tty: true
+      links:
+          - server1
+          - server2
+          - server3
+      ports:
+          - '8080:8080'
+volumes:
+  server:
