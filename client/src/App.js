@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter, Route} from 'react-router-dom';
-import Home from './Components/Home';
-import NavBar from './Components/NavBar';
-import Footer from './Components/Footer';
-import Resolve from './Components/Resolve';
+import Home from './components/Home';
+import NavBar from './components/NavBar';
+import Footer from './components/Footer';
+import Resolve from './components/Resolve';
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <React.Fragment>
         <NavBar/>
         <BrowserRouter>
-          <div id='routes'>
+          <React.Fragment>
             <Route exact path='/' component={Home}/>
             <Route exact path='/resolve' component={Resolve}/>
-          </div>
+          </React.Fragment>
         </BrowserRouter>
-        
         <Footer/>
-      </div>
+      </React.Fragment>
     );
   }
 }
