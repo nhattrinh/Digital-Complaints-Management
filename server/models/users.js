@@ -13,10 +13,19 @@ const userSchema = new mongoose.Schema({
     },
     github_id: String
 });
+const complainSchema = new mongoose.Schema({
+
+    complain_id: String,
+    username: String,
+    description: String,
+});
 
 const User = mongoose.model('User', userSchema);
 
+const Complain = mongoose.model('Complain', complainSchema);
+
 module.exports = User;
+module.exports = Complain;
 
 module.exports.createUser = function(newUser, callBack){
     bcrypt.genSalt(10, function(err, salt) {
@@ -33,4 +42,28 @@ module.exports.comparePassword = function(candidatePassword, hash, callback) {
         if (err) throw err;
         callback(null, isMatch);
     });
+}
+
+module.exports.uploadComplain = function(newComplain, callBack){
+    newComplain.save(callBack);
+}
+
+module.exports.getComplain = function(storeComplain, callBack){
+    Complain.find({ 'username': storeComplain.username}, 'complain_id description', function (err, complain) {
+        if (err) return callBack(err);
+        callBack(complain);
+      })
+}
+
+module.exports.updateComplain = function(updateComplain, callBack){
+    Complain.find({ 'username': updateComplain.username,'complain_id':updateComplain.complain_id}, 'description', function (err, complain) {
+        if (err) return callBack(err);
+        callBack(complain);
+      })     
+}
+module.exports.deleteComplain = function(updateComplain, callBack){
+    Complain.deleteOne({ 'username': updateComplain.username,'complain_id':updateComplain.complain_id}, function (err, res) {
+        if (err) return callBack(err);
+        callBack(res);
+      })     
 }
