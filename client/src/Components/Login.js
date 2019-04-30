@@ -25,9 +25,7 @@ export default class SignUp extends Component {
     return (
     <MDBContainer>
       <MDBBtn onClick={this.toggle}
-
               color='#A9A9A9'
-
               >
               Login
       </MDBBtn>
@@ -41,7 +39,6 @@ export default class SignUp extends Component {
               <div className="grey-text">
                 <MDBInput
                   label="Your email"
-                  icon="envelope"
                   group
                   type="email"
                   validate
@@ -50,7 +47,6 @@ export default class SignUp extends Component {
                 />
                 <MDBInput
                   label="Your password"
-                  icon="lock"
                   group
                   type="password"
                   validate

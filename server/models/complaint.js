@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const complaintSchema = new mongoose.Schema({
     username: String,
     description: String,
+    resolved: {
+        type: Boolean,
+        default: false
+    }
 });
 
 const Complaint = module.exports = mongoose.model('Complaint', complaintSchema);
