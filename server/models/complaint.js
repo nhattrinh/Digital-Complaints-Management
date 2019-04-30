@@ -6,7 +6,11 @@ const complaintSchema = new mongoose.Schema({
     resolved: {
         type: Boolean,
         default: false
-    }
+    },
+    replies: [{
+        name: String,
+        description: String
+    }]
 });
 
 const Complaint = module.exports = mongoose.model('Complaint', complaintSchema);
