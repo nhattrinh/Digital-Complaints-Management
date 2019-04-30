@@ -3,39 +3,34 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const passport = require('passport');
 const jwt =  require('jsonwebtoken');
+const validator = require('validator');
 
-const Complaints = require('../models/users');
+const Complaint = require('../models/complaint');
 
-router.post('/complain/get', (req, res) => {
-    let { complain_id,username,description } = req.body;
+router.get('/complain/get/:username', (req, res) => {
+    let { username } = req.params;
 
-    if (complain_id && username && description) {
+    if (!validator.isEmpty(username)) {
         try {
-            const storeComplain = new Complain({
-                complain_id:complain_id,
-                username: name,
-                description:description
-            });
-
-            Complain.getComplain(storeComplain, function(err, complain_id){
-                if(err) {
+            Complaint.getAllComplaintsByUsername(username, (err, complaints) => {
+                if (err) {
                     return res.status(500).json({
                         success: false, 
-                        msg: 'Complain does not exist', 
+                        msg: 'Complaints do not exist', 
                         errors: err
                     });
                 } else {
                     return res.status(200).json({
                         success: true, 
-                        msg: 'Complain found', 
-                        complain_id
+                        msg: 'Complaints found', 
+                        complaints
                     });
                 }
             });
         } catch (err) {
             return res.status(400).json({
                 success: false,
-                msg : 'Unable to find complain',
+                msg : 'Unable to find complaints',
                 err
             });
         }
@@ -43,34 +38,36 @@ router.post('/complain/get', (req, res) => {
 });
 
 router.post('/complain/create', (req, res) => {
-    let {complain_id,username,description } = req.body;
+    let { username, description } = req.body;
 
-    if (complain_id && username && description) {
+    if (
+            !validator.isEmpty(username)
+        &&  !validator.isEmpty(description)
+    ) {
         try {
-            const newComplain = new Complain({
-                complain_id:complain_id,
-                username: username,
-                description:description
+            const newComplaint = new Complaint({
+                username,
+                description
             });
 
-            Complain.uploadComplain(newComplain, function(err, complain_id){
+            Complain.uploadComplain(newComplaint, function(err, complaint){
                 if(err) {
                     return res.status(500).json({
                         success: false, 
-                        msg: 'Failed to upload complain', errors: err
+                        msg: 'Failed to upload complaint', errors: err
                     });
                 } else {
                     return res.status(200).json({
                         success: true, 
-                        msg: 'Complain uploaded', 
-                        complain_id
+                        msg: 'Complaint uploaded', 
+                        complaint
                     });
                 }
             });
         } catch (err) {
             return res.status(400).json({
                 success: false,
-                msg : 'Unable to upload complain',
+                msg : 'Unable to upload complaint',
                 err
             });
         }
@@ -78,17 +75,14 @@ router.post('/complain/create', (req, res) => {
 });
 
 router.post('/complain/update', (req, res) => {
-    let {complain_id,username,description } = req.body;
+    let { _id, data } = req.body;
 
-    if (complain_id && username && description) {
+    if (
+            !validator.isEmpty(_id)
+        &&  data
+    ) {
         try {
-            const updateComplain = new Complain({
-                complain_id:complain_id,
-                username: username,
-                description:description
-            });
-
-            Complain.updateComplain(updateComplain, function(err, complain_id){
+            Complain.updateComplain(_id, data, function (err, complain_id){
                 if(err) {
                     return res.status(500).json({
                         success: false, 
@@ -112,18 +106,12 @@ router.post('/complain/update', (req, res) => {
     }
 });
 
-router.post('/complain/delete', (req, res) => {
-    let {complain_id,username,description } = req.body;
+router.delete('/complain/delete/:_id', (req, res) => {
+    let { _id } = req.params;
 
-    if (complain_id && username && description) {
+    if (!validator.isEmpty(_id)) {
         try {
-            const deleteComplain = new Complain({
-                complain_id:complain_id,
-                username: username,
-                description: description
-            });
-
-            Complain.deleteComplain(deleteComplain, function(err, complain_id){
+            Complain.deleteComplain(_id, function (err, complain_id){
                 if(err) {
                     return res.status(500).json({
                         success: false, 
@@ -132,8 +120,7 @@ router.post('/complain/delete', (req, res) => {
                 } else {
                     return res.status(200).json({
                         success: true, 
-                        msg: 'Complain deleted', 
-                        complain_id
+                        msg: `Complaint with ID(${_id})deleted`
                     });
                 }
             });

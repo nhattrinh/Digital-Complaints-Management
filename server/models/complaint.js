@@ -12,15 +12,25 @@ module.exports.uploadComplaint = function (newComplain, callback) {
     newComplain.save(callback);
 };
 
-module.exports.getComplaint = function (storeComplain, callback) {
-    Complaint.find({ 'username': storeComplain.username }, function (err, complaint) {
+// Modified getComplaint function -- Nhat
+// Please check again if it's needed anymore -- Nhat
+
+// module.exports.getComplaint = function (_id, callback) {
+//     Complaint.findOne({ _id }, function (err, complaint) {
+//         if (err) return callback(err);
+//         callback(complaint);
+//       });
+// };
+
+module.exports.getAllComplaintsByUsername = function (username, callback) {
+    Complaint.find({ username }, function (err, complaints) {
         if (err) return callback(err);
-        callback(complaint);
-      });
+        callback(complaints);
+    });
 };
 
 module.exports.updateComplaint = function (_id, data, callback) {
-    Complaint.findOneAndUpdate({ _id }, data, function(err, complaint) {
+    Complaint.findOneAndUpdate({ _id }, data, function (err, complaint) {
         if (err) return callback(err);
         callback(complaint);
     });    
