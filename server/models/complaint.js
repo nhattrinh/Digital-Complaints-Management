@@ -7,10 +7,14 @@ const complaintSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    replies: [{
+    responses: [{
         name: String,
         description: String
-    }]
+    }],
+    time_created: {
+        type: Number,
+        default: Date.now()
+    }
 });
 
 const Complaint = module.exports = mongoose.model('Complaint', complaintSchema);

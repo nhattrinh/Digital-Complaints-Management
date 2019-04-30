@@ -13,7 +13,6 @@ export default class Complain extends Component {
                 id="form-contact-message"
                 label="Write New Complaint"
               />
-
               <MDBBtn rounded color="blue">
                 Post Complaint    &nbsp; <MDBIcon icon="paper-plane" />
               </MDBBtn>
