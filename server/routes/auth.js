@@ -3,13 +3,18 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const passport = require('passport');
 const jwt =  require('jsonwebtoken');
+const validator = require('validator');
 
 const User = require('../models/users');
 
 router.post('/register', (req, res) => {
     let { name, email, password } = req.body;
 
-    if (name && email && password) {
+    if (
+            !validator.isEmpty(name) 
+        &&  !validator.isEmpty(email) 
+        &&  !validator.isEmpty(password)
+    ) {
         try {
             const newUser = new User({
                 name: name,
@@ -17,7 +22,7 @@ router.post('/register', (req, res) => {
                 password: password
             });
 
-            User.createUser(newUser, function(err, user){
+            User.createUser(newUser, (err, user) => {
                 if(err) {
                     return res.status(500).json({
                         success: false, 
@@ -41,44 +46,41 @@ router.post('/register', (req, res) => {
     }
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     let { email, password } = req.body;
 
-    if (email && password) {
+    if (
+            !validator.isEmpty(email) 
+        &&  !validator.isEmpty(password)
+    ) {
         try {
-            User.getUserByEmail(email, function(err, user){
+            let user = await User.findOne({ email }).exec();
+            
+            if (!user) throw new Error('User does not exist in database');
+        
+            User.comparePassword(password, user.password, (err, isMatch) => {
                 if (err) throw err;
-                if(!user){
+                if(isMatch) {
+                    const token = jwt.sign({data: {
+                        _id: user._id,
+                    }}, 'supersecret', {
+                        expiresIn: 604800 // 1 week
+                    });
+    
+                    return res.status(200).json({
+                        token: 'Bearer ' + token,
+                        user: {
+                            _id: user._id,
+                            email: user.email,
+                            name: user.name
+                        }
+                    });
+                } else {
                     return res.status(500).json({
                         success: false, 
-                        msg: 'User with that email does not exist'
+                        msg: 'Password is incorrect'
                     });
                 }
-        
-                User.comparePassword(password, user.password, (err, isMatch) => {
-                    if (err) throw err;
-                    if(isMatch) {
-                        const token = jwt.sign({data: {
-                            _id: user._id,
-                        }}, config.secret, {
-                            expiresIn: 604800 // 1 week
-                        });
-        
-                        return res.status(200).json({
-                            token: 'Bearer ' + token,
-                            user: {
-                                _id: user._id,
-                                email: user.email,
-                                name: user.name
-                            }
-                        });
-                    } else {
-                        return res.status(500).json({
-                            success: false, 
-                            msg: 'Password is incorrect'
-                        });
-                    }
-                });
             });
         } catch (err) {
             return res.status(500).json({

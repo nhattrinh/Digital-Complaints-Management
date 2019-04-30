@@ -4,10 +4,10 @@ const router = express.Router();
 const passport = require('passport');
 const jwt =  require('jsonwebtoken');
 
-const Complain = require('../models/users');
+const Complaints = require('../models/users');
 
 router.post('/complain/get', (req, res) => {
-    let {complain_id,username,description } = req.body;
+    let { complain_id,username,description } = req.body;
 
     if (complain_id && username && description) {
         try {
@@ -120,7 +120,7 @@ router.post('/complain/delete', (req, res) => {
             const deleteComplain = new Complain({
                 complain_id:complain_id,
                 username: username,
-                description:description
+                description: description
             });
 
             Complain.deleteComplain(deleteComplain, function(err, complain_id){
