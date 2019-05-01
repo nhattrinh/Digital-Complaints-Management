@@ -6,7 +6,10 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String,
     google_id: String,
-    type: String,   // can be of either type HR or employee
+    type: {
+        default: "employee",
+        type: String
+    },  // can be of either type HR or employee
     github_id: String
 });
 

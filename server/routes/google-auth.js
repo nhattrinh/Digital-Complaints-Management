@@ -33,21 +33,21 @@ router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   async (req, res) => {
     let { displayName, emails, photos, token } = req.user;
-    let { id } = req.user._json;
+    let { sub } = req.user._json;
 
     try {
-        let query = await User.findOne({ google_id: id }).exec();
+        let query = await User.findOne({ google_id: sub }).exec();
         if (query === null) {
             var newUser = new User({
                 name: displayName,
                 email: emails[0].value,
-                google_id: id,
+                google_id: sub,
             });
 
             newUser.save();
         }
 
-        return res.redirect(`http://localhost:3000?id=${id}&new=${query === null ? 'true' : 'false'}`);
+        return res.redirect(`http://localhost:3000?id=${sub}&new=${query === null ? 'true' : 'false'}`);
     }
     catch (err) {
       console.log(err);
