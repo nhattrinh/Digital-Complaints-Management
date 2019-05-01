@@ -34,13 +34,11 @@ const findOrCreateUser = async (profile, cb) => {
                 github_id: profile.id
             });
 
-            user.save();
+            user.save(cb());
         }
     } catch (err) {
         console.log(err);
         return null;
-    } finally {
-        cb();
     }
 };
 
