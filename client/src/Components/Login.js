@@ -59,7 +59,9 @@ export default class Login extends Component {
                 <a href="http://localhost:3001/auth/google">
                   <GoogleLoginButton />
                 </a>
-                <GithubLoginButton onClick={() => alert("Hello")} />
+                <a href="http://localhost:3001/auth/github">
+                  <GithubLoginButton />
+                </a>
               </MDBCol>
           </MDBModalBody>
         <MDBModalFooter>
