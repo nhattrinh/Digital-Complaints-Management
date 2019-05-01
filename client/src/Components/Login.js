@@ -1,16 +1,16 @@
-import React, {Component} from "react";
-import { MDBContainer,
-         MDBRow,
-         MDBCol,
-         MDBBtn,
-         MDBInput,
-         MDBModal,
-         MDBModalHeader,
-         MDBModalBody,
-         MDBModalFooter } from 'mdbreact';
+import React, { Component } from "react";
+import { 
+  MDBContainer, MDBRow, MDBCol,
+  MDBBtn, MDBInput, MDBModal,
+  MDBModalHeader, MDBModalBody, MDBModalFooter 
+} from 'mdbreact';
+import { GithubLoginButton, GoogleLoginButton } from "react-social-login-buttons";
+import axios from 'axios';
+
+import '../App.css';
 
 
-export default class SignUp extends Component {
+export default class Login extends Component {
   state = {
     modal: false
   }
@@ -32,31 +32,38 @@ export default class SignUp extends Component {
 
       <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
         <MDBModalHeader toggle={this.toggle} className="grey-text">LOGIN</MDBModalHeader>
-        <MDBModalBody>
-        <MDBRow>
-          <MDBCol >
-            <form>
-              <div className="grey-text">
-                <MDBInput
-                  label="Your email"
-                  group
-                  type="email"
-                  validate
-                  error="wrong"
-                  success="right"
-                />
-                <MDBInput
-                  label="Your password"
-                  group
-                  type="password"
-                  validate
-                />
-              </div>
-            </form>
-          </MDBCol>
-        </MDBRow>
-        </MDBModalBody>
-
+          <MDBModalBody>
+            <MDBRow>
+              <MDBCol>
+                <form>
+                  <div className="grey-text">
+                    <MDBInput
+                      label="Your email"
+                      group
+                      type="email"
+                      validate
+                      error="wrong"
+                      success="right"
+                    />
+                    <MDBInput
+                      label="Your password"
+                      group
+                      type="password"
+                      validate
+                    />
+                  </div>
+                </form>
+              </MDBCol>
+            </MDBRow>
+              <MDBCol sm="8" className="offset-sm-2">
+                <a href="http://localhost:3001/auth/google">
+                  <GoogleLoginButton />
+                </a>
+                <a href="http://localhost:3001/auth/github">
+                  <GithubLoginButton />
+                </a>
+              </MDBCol>
+          </MDBModalBody>
         <MDBModalFooter>
           <MDBBtn onClick={this.toggle}
                     outline rounded

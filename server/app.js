@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const morgan  = require('morgan');
 const cors = require('cors');
 const app = express();
+const passport = require('passport');
 
 let { auth, complain, githubAuth, googleAuth } = require('./routes');
 
@@ -17,6 +18,9 @@ mongoose.connect(
     config.database, {
         useNewUrlParser: true
     });
+
+app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use(morgan('dev'));
 
