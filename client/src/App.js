@@ -17,31 +17,6 @@ import './App.css';
 class App extends Component {
   persistConfig = configureStore();
 
-  componentDidMount() {
-    try {
-      var query = queryString.parse(this.props.location.search);
-      if (query.id) {
-        axios.post('http://localhost:3001/auth/find-by-google-id', { google_id: query.id })
-          .then(res => {
-            let { token, user } = res.data;
-            this.props.userLoggedIn({ 
-              user,
-              token
-            });
-          })
-          .catch(err => {
-            console.log(err);
-          })
-          .finally(() => {
-            this.props.history.push("/");
-          });
-      }
-    }
-    catch(err) {
-      console.log(err);
-    }
-  }
-
   render() {
     return (
       <Provider store={this.persistConfig.store}>

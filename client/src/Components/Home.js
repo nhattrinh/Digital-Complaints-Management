@@ -1,11 +1,52 @@
 import React, { Component } from 'react';
-import {MDBContainer,
-        MDBRow,
-        MDBCol } from "mdbreact";
+import {MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import queryString from 'query-string';
+import axios from 'axios';
+
+import { connect } from 'react-redux';
+
+import { userLoggedIn } from './redux/actions/auth';
+
 import SignUp from './SignUp';
 
 
-export default class Home extends Component{
+class Home extends Component{
+  componentDidMount() {
+    try {
+      var query = queryString.parse(this.props.location.search);
+
+      if (query.id) {
+        axios.get(`http://localhost:3001/auth/find-by-google-id/${query.id}`)
+          .then(res => {
+            let { token, user } = res.data;
+            this.props.userLoggedIn({ user, token });
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .finally(() => {
+            this.props.history.push("/");
+          });
+      } else if (query.githubID) {
+        axios.get(`http://localhost:3001/auth/find-by-github-id/${query.githubID}`)
+          .then(res => {
+            console.log(res.data);
+            let { token, user } = res.data;
+            this.props.userLoggedIn({ user, token });
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .finally(() => {
+            this.props.history.push("/");
+          });
+      }
+    }
+    catch(err) {
+      console.log(err);
+    }
+  }
+
   handleViewMoreClick = () => {
   window.scrollTo({
       top: window.innerHeight,
@@ -64,3 +105,11 @@ const styles = {
     color: 'black'
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user
+  };
+};
+
+export default connect(mapStateToProps, { userLoggedIn })(Home);

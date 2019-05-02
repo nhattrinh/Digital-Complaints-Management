@@ -63,7 +63,7 @@ router.post('/login', async (req, res) => {
                 if(isMatch) {
                     const token = jwt.sign({data: {
                         _id: user._id,
-                    }}, 'supersecret', {
+                    }}, 'genioisacoolapp', {
                         expiresIn: 604800 // 1 week
                     });
     
