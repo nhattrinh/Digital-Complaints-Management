@@ -6,12 +6,12 @@ import axios from 'axios';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import configureStore from './components/redux/configureStore';
+import configureStore from './Components/redux/configureStore';
 
-import Home from './components/Home';
-import NavBar from './components/NavBar';
-import Footer from './components/Footer';
-import Resolve from './components/Resolve';
+import Home from './Components/Home';
+import NavBar from './Components/NavBar';
+import Footer from './Components/Footer';
+import Resolve from './Components/Resolve';
 
 import './App.css';
 class App extends Component {
