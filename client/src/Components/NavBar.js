@@ -7,24 +7,61 @@ import {
     Nav,
     NavItem,
     NavLink,
- } from 'reactstrap';
- import Login from './Login'
+} from 'reactstrap';
 
-  export default class NavBar extends Component {
-    constructor(props) {
-      super(props);
+import { connect } from 'react-redux';
 
-      this.toggle = this.toggle.bind(this);
-      this.state = {
-        isOpen: false
+import { logout } from './redux/actions'
+
+import Login from './Login'
+
+class NavBar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false,
+      user: null
+    };
+  }
+
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.user !== state.user) {
+      return {
+        user: props.user
       };
     }
-    toggle() {
-      this.setState({
-        isOpen: !this.state.isOpen
-      });
-    }
-    render() {
+
+    return null;
+  }
+
+  render() {
+    if (!this.state.user) {
+      return (
+        <div>
+          <Navbar style ={styles.background} expand="md">
+          <NavbarBrand>
+              <NavLink style={{fontSize: '20px', color: 'white'}} href="/">Digital Complaints Management</NavLink>
+          </NavbarBrand>
+            <NavbarToggler onClick={this.toggle} />
+            <Collapse isOpen={this.state.isOpen} navbar>
+              <Nav className="ml-auto">
+                <NavItem>
+                    <NavLink style={styles.item}><Login/></NavLink>
+                </NavItem>
+              </Nav>
+            </Collapse>
+          </Navbar>
+        </div>
+      );
+    } else {
       return (
         <div>
           <Navbar style ={styles.background} expand="md">
@@ -37,10 +74,8 @@ import {
                 <NavItem>
                   <NavLink style={styles.item} href="/resolve/">Your Complaints</NavLink>
                 </NavItem>
-              </Nav>
-              <Nav className="ml">
                 <NavItem>
-                    <NavLink style={styles.item}><Login/></NavLink>
+                  <NavLink style={styles.item} onClick={() => this.props.logout()} href="#">Logout</NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
@@ -49,16 +84,25 @@ import {
       );
     }
   }
+}
 
-  const styles = {
-    background:{
-      backgroundColor: '#A9A9A9',
-      height: '80px',
-    },
-    item:{
-        color: 'white',
-        font: ' bold 20px',
-        marginLeft: '50px',
+const styles = {
+  background:{
+    backgroundColor: '#A9A9A9',
+    height: '80px',
+  },
+  item:{
+      color: 'white',
+      font: ' bold 20px',
+      marginLeft: '50px',
 
-    }
   }
+}
+
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user
+  };
+};
+
+export default connect(mapStateToProps, { logout })(NavBar);

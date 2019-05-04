@@ -7,12 +7,12 @@ const validator = require('validator');
 
 const Complaint = require('../models/complaint');
 
-router.get('/complain/get/:username', (req, res) => {
-    let { username } = req.params;
+router.get('/complain/get/:_id', (req, res) => {
+    let { _id } = req.params;
 
-    if (!validator.isEmpty(username)) {
+    if (!validator.isEmpty(_id)) {
         try {
-            Complaint.getAllComplaintsByUsername(username, (err, complaints) => {
+            Complaint.find({ user_id: _id }, (err, complaints) => {
                 if (err) {
                     return res.status(500).json({
                         success: false, 
@@ -37,20 +37,61 @@ router.get('/complain/get/:username', (req, res) => {
     }
 });
 
-router.post('/complain/create', (req, res) => {
-    let { username, description } = req.body;
+router.post('/complain/reply', async (req,res) => {
+    let { user_id, _id, description, creator_name } = req.body;
 
     if (
-            !validator.isEmpty(username)
+            !validator.isEmpty(_id)
         &&  !validator.isEmpty(description)
+        &&  !validator.isEmpty(creator_name)
+        &&  !validator.isEmpty(user_id)
+    ) {
+        try {
+            let complaint = await Complaint.findOne({ _id }).exec();
+            
+            if (!complaint) throw new Error('Complaint not found');
+
+            complaint.responses = complaint.responses.push({
+                user_id, _id, description, creator_name
+            });
+
+            complaint.save(
+                () => res.status(200).json({
+                    success: true,
+                    complaint
+                }));
+        } catch(err) {
+            return res.status(400).json({
+                success: false,
+                msg : 'Unable to upload reply',
+                err
+            });
+        }
+
+    } else {
+        return res.status(400).json({
+            success: false,
+            msg : 'Unable to upload reply'
+        });
+    }
+});
+
+router.post('/complain/create', (req, res) => {
+    let { _id, description, creator_name } = req.body;
+
+    if (
+            !validator.isEmpty(_id)
+        &&  !validator.isEmpty(description)
+        // &&  !validator.isEmpty(creator_name)
     ) {
         try {
             const newComplaint = new Complaint({
-                username,
-                description
+                user_id: _id,
+                description,
+                creator_name
             });
 
-            Complain.uploadComplain(newComplaint, function(err, complaint){
+            newComplaint.save((err, complaint) => {
                 if(err) {
                     return res.status(500).json({
                         success: false, 
@@ -65,6 +106,7 @@ router.post('/complain/create', (req, res) => {
                 }
             });
         } catch (err) {
+            console.log(err);
             return res.status(400).json({
                 success: false,
                 msg : 'Unable to upload complaint',

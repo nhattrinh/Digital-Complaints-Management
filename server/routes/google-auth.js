@@ -41,7 +41,7 @@ router.get('/auth/google/callback',
             var newUser = new User({
                 name: displayName,
                 email: emails[0].value,
-                google_id: sub,
+                google_id: sub
             });
 
             newUser.save();
@@ -58,8 +58,8 @@ router.get('/auth/google/callback',
     }
   });
 
-router.post('/auth/find-by-google-id', async (req,res) => {
-  let { google_id } = req.body;
+router.get('/auth/find-by-google-id/:google_id', async (req,res) => {
+  let { google_id } = req.params;
 
   try {
     let user = await User.findOne({ google_id }).exec();
@@ -67,7 +67,7 @@ router.post('/auth/find-by-google-id', async (req,res) => {
     if (user !== null) {
       const token = jwt.sign({data: {
           google_id,
-      }}, config.secret, {
+      }}, 'genioisacoolapp', {
           expiresIn: 604800 // 1 week
       });
 

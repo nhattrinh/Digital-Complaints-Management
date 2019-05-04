@@ -42,16 +42,13 @@ export const login = data => {
     };
 };
 
-export const githubLogin = data => {
-    return dispatch => {
-        axios.post
+export const userLoggedIn = (user, token) => ({
+    type: LOGIN,
+    payload: {
+        user, token
     }
-}
+});
 
 export const logout = () => ({
-    type: USER_LOGOUT,
-    payload: {
-        user: null,
-        token: null
-    }
+    type: LOGOUT
 });

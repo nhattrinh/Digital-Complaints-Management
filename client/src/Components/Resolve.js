@@ -2,9 +2,96 @@ import React, {Component} from "react";
 import { MDBRow, MDBCol, MDBCard, MDBMedia, MDBIcon, MDBView, MDBBtn } from "mdbreact";
 import { MDBContainer } from "mdbreact";
 import Complaint from './Complaint'
+import axios from 'axios';
+import { connect } from "react-redux";
 
+class Resolve extends Component {
+  state = {
+    complaint: ''
+  };
 
-export default class Resolve extends Component {
+  componentDidMount() {
+    this.populateComplaints();
+  }
+
+  populateComplaints() {
+    if (this.state.user) {
+      axios.get(`http://localhost:3001/complain/get/${this.state.user._id}`)
+        .then(res => {
+          console.log(res.data.complaints);
+          this.setState({ complaints: res.data.complaints });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.user !== state.user) {
+      return {
+        user: props.user
+      };
+    }
+
+    return null;
+  }
+
+  renderComplaints() {
+    if (this.state.complaints) {
+      return this.state.complaints.map((v,i) => {
+        return (
+          <MDBMedia key={i}>
+            <MDBMedia body >
+              <MDBMedia heading>
+              </MDBMedia>
+                <p style={{ fontSize: 20 }}>{ v.description }</p>
+              <p>
+                by <a href="#!" className="font-weight-bold">{ v.creator_name }</a>, { new Date(v.time_created).toUTCString() }, { v.resolved ? 'Marked as Resolved': 'Unresolved' }
+              </p>
+              { this.renderResponses(v) }
+          </MDBMedia>
+        </MDBMedia>
+        );
+      })
+    }
+  }
+
+  renderResponses(complaint) {
+    return complaint.responses.map((v,i) => {
+      return (
+        <MDBMedia key={i} className="mt-3">
+            <MDBMedia left href="#" className="pr-3">
+                <MDBMedia object src="https://mdbootstrap.com/img/Photos/Others/placeholder4.jpg" alt="Generic placeholder image" />
+            </MDBMedia>
+            <MDBMedia body>
+              { v.description }
+              <p>by <a href="#!" className="font-weight-bold">{ v.creator_name }</a>, { new Date(v.time_created).toUTCString() }</p>
+            </MDBMedia>
+        </MDBMedia>
+      );
+    });
+  }
+
+  uploadComplaint = () => {
+    console.log(this);
+    console.log('aaaaa')
+    let { user, complaint } = this.state;
+    axios.post('http://localhost:3001/complain/create', {
+      creator_name: user.name,
+      description: complaint,
+      _id: user._id
+    })
+      .then(res => {
+        if (res.data.success)
+          this.populateComplaints();
+          this.setState({ complaint: '' });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render(){
     return (
     <MDBContainer>
@@ -12,7 +99,7 @@ export default class Resolve extends Component {
         <MDBCol md="12">
           <h1 className="h1-responsive font-weight-bold text-center my-5">Profile</h1>
           <MDBRow>
-            <MDBCol md="6">
+            {/* <MDBCol md="6">
                     <MDBView className="mx-auto">
                       <img
                         src="https://mdbootstrap.com/img/Photos/Avatars/img%20(26).jpg"
@@ -28,51 +115,38 @@ export default class Resolve extends Component {
                       "About me Section Here"
 
                     </p>
+            </MDBCol> */}
+            <MDBCol>
+              <Complaint
+                onChange={e => this.setState({ complaint: e.target.value })}
+                value={ this.state.complaint }
+                onClick={() => {
+                  console.log('clicked')
+                  this.uploadComplaint();
+                }}
+              />
             </MDBCol>
-            <MDBCol md="6"><Complaint/></MDBCol>
           </MDBRow>
         </MDBCol>
         </MDBRow>
 
         <MDBRow>
-        <MDBCol md="12">
-            <h2 className="h1-responsive font-weight-bold text-center my-5">
-            Recent Complaint Posts
-            </h2>
-            <MDBMedia>
-                <MDBMedia left href="#" className="mr-3">
-                <MDBMedia object src="https://mdbootstrap.com/img/Photos/Others/placeholder4.jpg" alt="Generic placeholder image" />
-                </MDBMedia>
-
-                <MDBMedia body>
-                    <MDBMedia heading>
-                        <strong>Description</strong>
-                    </MDBMedia>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    <p>by <a href="#!" className="font-weight-bold">Truc Vo</a>, 19/04/2018</p>
-                    <MDBBtn color="primary" size="md">
-                    Read More
-                    </MDBBtn>
-
-                    <MDBMedia className="mt-3">
-                        <MDBMedia left href="#" className="pr-3">
-                            <MDBMedia object src="https://mdbootstrap.com/img/Photos/Others/placeholder4.jpg" alt="Generic placeholder image" />
-                        </MDBMedia>
-                        <MDBMedia body>
-                            <MDBMedia heading>
-                                Response
-                            </MDBMedia>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. C<p>by <a href="#!" className="font-weight-bold">Truc Vo</a>, 19/04/2018</p>
-                            <MDBBtn color="primary" size="md">
-                            Read More
-                            </MDBBtn>
-                        </MDBMedia>
-                    </MDBMedia>
-                </MDBMedia>
-            </MDBMedia>
-        </MDBCol>
+          <MDBCol md="12">
+              <h2 className="h1-responsive font-weight-bold text-center my-5">
+              Recent Complaints
+              </h2>
+              { this.renderComplaints() }
+          </MDBCol>
         </MDBRow>
     </MDBContainer>
 );
 }
 }
+
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user.user
+  };
+};
+
+export default connect(mapStateToProps, null)(Resolve);

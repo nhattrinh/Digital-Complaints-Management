@@ -1,16 +1,38 @@
 const mongoose = require('mongoose');
 
 const complaintSchema = new mongoose.Schema({
-    username: String,
-    description: String,
+    creator_name: {
+        type: String,
+        default: ''
+    },
+    user_id: {
+        type: String,
+        default: ''
+    },
+    email: {
+        type: String,
+        default: ''
+    },
+    description: {
+        type: String,
+        default: ''
+    },
     resolved: {
         type: Boolean,
         default: false
     },
-    responses: [{
-        name: String,
-        description: String
-    }],
+    responses: {
+        type: [{
+            creator_name: String,
+            description: String,
+            time_created: {
+                type: Number,
+                default: Date.now()
+            },
+            user_id: String
+        }],
+        default: []
+    },
     time_created: {
         type: Number,
         default: Date.now()
@@ -34,12 +56,12 @@ module.exports.uploadComplaint = function (newComplain, callback) {
 //       });
 // };
 
-module.exports.getAllComplaintsByUsername = function (username, callback) {
-    Complaint.find({ username }, function (err, complaints) {
-        if (err) return callback(err);
-        callback(complaints);
-    });
-};
+// module.exports.getAllComplaintsByUsername = function (username, callback) {
+//     Complaint.find({ username }, function (err, complaints) {
+//         if (err) return callback(err);
+//         callback(complaints);
+//     });
+// };
 
 module.exports.updateComplaint = function (_id, data, callback) {
     Complaint.findOneAndUpdate({ _id }, data, function (err, complaint) {

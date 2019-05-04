@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {  MDBRow, MDBCol, MDBIcon, MDBBtn, MDBInput, MDBContainer } from "mdbreact";
 export default class Complain extends Component {
   render() {
+    console.log(this.props)
     return (
       <MDBContainer>
       <section className="contact-section my-5">
@@ -12,8 +13,10 @@ export default class Complain extends Component {
                 type="textarea"
                 id="form-contact-message"
                 label="Write New Complaint"
+                onChange={ this.props.onChange.bind(this) }
+                value={ this.props.value }
               />
-              <MDBBtn rounded color="blue">
+              <MDBBtn rounded color="blue" onClick={ this.props.onClick }>
                 Post Complaint    &nbsp; <MDBIcon icon="paper-plane" />
               </MDBBtn>
             </div>
