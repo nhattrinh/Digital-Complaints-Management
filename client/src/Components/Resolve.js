@@ -74,8 +74,6 @@ class Resolve extends Component {
   }
 
   uploadComplaint = () => {
-    console.log(this);
-    console.log('aaaaa')
     let { user, complaint } = this.state;
     axios.post('http://localhost:3001/complain/create', {
       creator_name: user.name,
@@ -121,7 +119,6 @@ class Resolve extends Component {
                 onChange={e => this.setState({ complaint: e.target.value })}
                 value={ this.state.complaint }
                 onClick={() => {
-                  console.log('clicked')
                   this.uploadComplaint();
                 }}
               />
@@ -131,7 +128,7 @@ class Resolve extends Component {
         </MDBRow>
 
         <MDBRow>
-          <MDBCol md="12">
+          <MDBCol md="12" style={{ marginBottom: '7em', marginTop: '7em' }}>
               <h2 className="h1-responsive font-weight-bold text-center my-5">
               Recent Complaints
               </h2>
