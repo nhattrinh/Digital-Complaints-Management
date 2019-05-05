@@ -31,3 +31,17 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+.background-image {
+  background: url('https://www.insperity.com/wp-content/uploads/2016/01/5-critical-steps-to-future-proofing-your-human-resources-strategy-640x3021.png');
+  background-size: 85%;
+  background-repeat: no-repeat;
+  background-position: center;
+ }
+ @media(min-width: 300px){
+  .background-image{
+    height: 100vh;
+  }
+ }
