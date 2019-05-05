@@ -6,7 +6,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 
 import { userLoggedIn } from './redux/actions/auth';
-
+import '../App.css';
 import SignUp from './SignUp';
 
 
@@ -56,7 +56,7 @@ class Home extends Component{
 
   render(){
     return(
-      <div style = {styles.homeStyle}>
+      <div className="background-image" style = {styles.homeStyle}>
             <div style = {styles.content}>
               <MDBContainer className="px-md-3 px-sm-0">
                 <MDBRow>
