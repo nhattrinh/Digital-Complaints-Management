@@ -6,7 +6,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 
 import { userLoggedIn } from './redux/actions/auth';
-
+import '../App.css';
 import SignUp from './SignUp';
 
 
@@ -56,18 +56,19 @@ class Home extends Component{
 
   render(){
     return(
-      <div style = {styles.homeStyle}>
+      <div className="background-image" style = {styles.homeStyle}>
             <div style = {styles.content}>
               <MDBContainer className="px-md-3 px-sm-0">
                 <MDBRow>
                   <MDBCol md="12" className="mb-4 black-text text-center">
-                    <h3 className="display-3 font-weight-bold mb-0 pt-md-5">Digital Complaints Management      <i class="fas fa-user-tie"></i></h3>
+                    <h3 className="display-3 font-weight-bold mb-0 pt-md-5" style={{backgroundColor: 'rgba(255, 255, 255, .5)'}}>Digital Complaints Management      <i class="fas fa-user-tie"></i></h3>
                     <hr className="my-17 w-75" style={styles.hr}/>
-                    <h4 className="subtext-header mt-2 mb-4">
+                    <h4 className="subtext-header mt-2 mb-4" style={{backgroundColor: 'rgba(255, 255, 255, .5)'}}>
+                      <br/>
                       Submit your concerns, inquiries and complaints.<br/>
                       We aim to reduce complaint resolution time<br/>
                       <br/>
-                      <br/>
+                
                       Don't have an account? Click below to get started<br/>
                       <br/>
                     </h4>

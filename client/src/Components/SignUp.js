@@ -25,8 +25,8 @@ export default class SignUp extends Component {
     return (
       <MDBContainer>
         <MDBBtn onClick={this.toggle}
-                outline rounded
-                color='grey'
+                rounded
+                color='white'
                 style={styles.button}
                 >
                 SIGN UP HERE !

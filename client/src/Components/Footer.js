@@ -14,21 +14,6 @@ export default class FooterPagePro extends Component{
           </MDBCol>
           <MDBCol md="2" className="b-3">
             <h6 className="title font-weight-bold">
-              <a href="/program" style={{color:'white'}}>Program</a>
-            </h6>
-          </MDBCol>
-          <MDBCol md="2" className="b-3">
-            <h6 className="title font-weight-bold">
-              <a href="/award" style={{color:'white'}}>Awards</a>
-            </h6>
-          </MDBCol>
-          <MDBCol md="2" className="b-3">
-            <h6 className="title font-weight-bold">
-              <a href="/help" style={{color:'white'}}>Help</a>
-            </h6>
-          </MDBCol>
-          <MDBCol md="2" className="b-3">
-            <h6 className="title font-weight-bold">
               <a href="/contact" style={{color:'white'}}>Contact</a>
             </h6>
           </MDBCol>
@@ -37,12 +22,7 @@ export default class FooterPagePro extends Component{
         <MDBRow className="d-flex text-center justify-content-center mb-md-0 mb-4">
           <MDBCol md="8" sm="12" className="mt-5">
             <p style={{ lineHeight: "1.7rem" }}>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae
-              vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
-              voluptas sit aspernatur aut odit aut fugit, sed quia
-              consequuntur.
+              Digital Complaints Mangament is a Human Resource Application where employees can post complaints and get it resolved. Our main purpose is to improve communication between Human Resoures and Employees. We want to create a better environment in the company by lessening the stress of meeting with HR physically.
             </p>
           </MDBCol>
         </MDBRow>
@@ -87,7 +67,7 @@ export default class FooterPagePro extends Component{
 const styles = {
     footer: {
       textAlign: 'center',
-    
+
       backgroundColor: '#A9A9A9',
       color: 'white'
     },

@@ -31,3 +31,17 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+.background-image {
+  background: fixed url('https://www.rpcconsulting.com/wp-content/uploads/2015/02/Mileout_capabilities-1-1600x974.jpg');
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+ }
+ @media(min-width: 300px){
+  .background-image{
+    height: 90vh;
+  }
+ }
