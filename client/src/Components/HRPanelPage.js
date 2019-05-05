@@ -100,7 +100,7 @@ class HRPanelPage extends Component {
     <MDBContainer>
         <MDBRow>
         <MDBCol md="12">
-          <h1 className="h1-responsive font-weight-bold text-center my-5">HR Admin Panel</h1>
+          <h1 className="h1-responsive font-weight-bold text-center my-5">Admin Panel</h1>
 
         </MDBCol>
         </MDBRow>
@@ -111,7 +111,7 @@ class HRPanelPage extends Component {
               May 2019
               </h2>
 
-              <MDBMedia  className="mt-3" style={{border:" 2px groove", padding: "25px", marginBottom: "20px"}}>
+              <MDBMedia  className="mt-3" style={{border:" 2px groove", padding: "15px", marginBottom: "20px"}}>
 
               <MDBRow>
               <MDBCol size='12'>
@@ -133,7 +133,43 @@ class HRPanelPage extends Component {
               </MDBMedia>
 
 
-              <MDBMedia  className="mt-3" style={{border:" 2px groove", padding: "25px", marginBottom: "20px"}}>
+
+
+              <MDBMedia  className="mt-3" style={{border:" 2px groove", padding: "15px", marginBottom: "0px"}}>
+
+              <MDBRow>
+              <MDBCol size='12'>
+              <MDBMedia body >
+                <MDBMedia heading>
+                </MDBMedia>
+                  <p style={{ fontSize: 20 }}><strong>Description:</strong> <br/> I hate the food here</p>
+                <p>
+                  by <a href="#!" className="font-weight-bold">Jennifer Nguyen</a>, 05/9/2019, Resolved <i class="fas fa-check-circle" style={{color: "#228B22"}}></i>
+                </p>
+
+            </MDBMedia>
+              </MDBCol>
+              <MDBCol size='2'>
+
+              </MDBCol>
+              </MDBRow>
+
+              </MDBMedia>
+
+
+              <MDBMedia  className="mt-3" style={{border:" 2px solid #d3a13b", padding: "15px", marginBottom: "20px", marginLeft: "5%", backgroundColor: "#fefcf8"}}>
+                  <MDBMedia left href="#" className="pr-3">
+
+                  </MDBMedia>
+                  <MDBMedia body>
+                    <p style={{ fontSize: 20 }}><strong>Resolution:</strong> <br/> Sorry, but there is nothing HR can do about that</p>
+                    <p>by <a href="#!" className="font-weight-bold">Truc Vo</a>, 05/10/2019</p>
+                  </MDBMedia>
+              </MDBMedia>
+
+
+
+              <MDBMedia  className="mt-3" style={{border:" 2px groove", padding: "15px", marginBottom: "20px"}}>
 
               <MDBRow>
               <MDBCol size='12'>
@@ -153,8 +189,6 @@ class HRPanelPage extends Component {
               </MDBRow>
 
               </MDBMedia>
-
-
 
 
 
