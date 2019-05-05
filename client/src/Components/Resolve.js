@@ -41,7 +41,7 @@ class Resolve extends Component {
     if (this.state.complaints) {
       return this.state.complaints.map((v,i) => {
         return (
-          <MDBMedia key={i}>
+          <MDBMedia key={i} style={{border:" 2px groove", padding: "25px", marginBottom: "20px"}}>
             <MDBMedia body >
               <MDBMedia heading>
               </MDBMedia>
@@ -60,7 +60,7 @@ class Resolve extends Component {
   renderResponses(complaint) {
     return complaint.responses.map((v,i) => {
       return (
-        <MDBMedia key={i} className="mt-3">
+        <MDBMedia key={i} className="mt-3" style={{border:" 2px groove", padding: "25px", marginBottom: "20px"}}>
             <MDBMedia left href="#" className="pr-3">
                 <MDBMedia object src="https://mdbootstrap.com/img/Photos/Others/placeholder4.jpg" alt="Generic placeholder image" />
             </MDBMedia>
