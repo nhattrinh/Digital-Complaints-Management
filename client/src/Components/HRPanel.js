@@ -7,9 +7,8 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
-import { adminLogin, adminLogout } from '../../actions';
 
-class AdminPanel extends Component {
+class HRPanel extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,7 +18,8 @@ class AdminPanel extends Component {
             password: '',
             admin: null,
             reservations: [],
-            users: []
+            users: [],
+            user: {}
         };
     }
 
@@ -33,9 +33,9 @@ class AdminPanel extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (props.admin !== state.admin) {
+        if (props.user !== state.user) {
             return {
-                admin: props.admin,
+                user: props.user,
                 modal: props.admin ? true : false
             };
         }
@@ -95,31 +95,14 @@ class AdminPanel extends Component {
             : this.setState({ redirect: true });
     }
 
-    renderAdminPanel = () => {
-
-    }
-
     render() {
-        if (this.state.redirect) {
-            this.props.adminLogout();
+        if (this.state.user.type === "employee") {
             return <Redirect to="/" />
         }
 
         return (
             <div style={styles.rootContainer}>
-                <Modal isOpen={this.state.modal}>
-                    <ModalHeader>Admin Login</ModalHeader>
-                    <ModalBody>
-                        {this.renderLoginForm()}
-                    </ModalBody>
-                    <ModalFooter>
-                        <MDBBtn color="info" onClick={() => this.setState({ redirect: true })}>Back to Homepage</MDBBtn>
-                        <MDBBtn color="indigo" onClick={this.handleLogin}>Login</MDBBtn>
-                    </ModalFooter>
-                </Modal>
-                { this.state.admin
-                    ? this.renderAdminPanel()
-                    : null}
+                { this.renderAdminPanel() }
             </div>
         )
     }
@@ -128,14 +111,14 @@ class AdminPanel extends Component {
 const styles = {
     rootContainer: {
         minHeight: '100vh',
-        backgroundColor: 'black'
+        backgroundColor: 'white'
     }
 };
 
 const mapStateToProps = state => {
     return ({
-        admin: state.auth.admin
+        user: state.auth.user
     });
 };
 
-export default connect(mapStateToProps,{ adminLogin, adminLogout })(AdminPanel);
+export default connect(mapStateToProps, null)(HRPanel);

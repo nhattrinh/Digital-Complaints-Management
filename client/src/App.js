@@ -12,6 +12,7 @@ import Home from './Components/Home';
 import NavBar from './Components/NavBar';
 import Footer from './Components/Footer';
 import Resolve from './Components/Resolve';
+import HRPanel from './Components/HRPanel';
 
 import './App.css';
 class App extends Component {
@@ -27,6 +28,7 @@ class App extends Component {
               <React.Fragment>
                 <Route exact path='/' component={Home}/>
                 <Route exact path='/resolve' component={Resolve}/>
+                <Route exact path='/hrpanel' component={HRPanel}/>
               </React.Fragment>
             </BrowserRouter>
             <Footer/>
