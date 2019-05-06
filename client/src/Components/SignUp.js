@@ -12,7 +12,8 @@ import { MDBContainer,
 
 export default class SignUp extends Component {
   state = {
-    modal: false
+    modal: false,
+    check: false
   }
 
   toggle = () => {
@@ -69,11 +70,35 @@ export default class SignUp extends Component {
                     validate
                   />
                 </div>
+
+
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="hrcheck" value={this.state.check} onClick={()=> this.setState({check: !this.state.check})}/>
+                    <label class="custom-control-label" for="hrcheck">Human Resources?</label>
+                </div>
+                {this.state.check?   <MDBInput
+                    label="Sercurity Code"
+                    group
+                    type="text"
+                    validate
+                    error="wrong"
+                    success="right"
+                  />: <div></div>
+                }
+                <br/>
+              
+
+
+
+
                 <h5>
                 By creating this account, you agree to our
                 <a href = "/termandcondition" > Terms & Condintions</a></h5>
                 <div className="text-center">
                 </div>
+
+
+
               </form>
             </MDBCol>
           </MDBRow>
