@@ -8,9 +8,9 @@ Digital Complaints Management is a human resouce application where employees can
 
 ## Features
 These are some of the features we implemented in DCM:
--[x] Authentication with register, sign in and sign out
--[x] Authentication with google login
--[x] Posting complaints, concerns, and inquiries
--[x] Employees can view all their complaints
--[x] HR can view all the complaints in database
--[x] HR can resolve any complaints
+- [x] Authentication with register, sign in and sign out
+- [x] Authentication with google login
+- [x] Posting complaints, concerns, and inquiries
+- [x] Employees can view all their complaints
+- [x] HR can view all the complaints in database
+- [x] HR can resolve any complaints
