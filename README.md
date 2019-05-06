@@ -16,7 +16,7 @@ These are some of the features we implemented in DCM:
 - [x] HR can resolve any complaints
 
 ## Homepage
-
+<img src="https://github.com/NhatTrinh/Digital-Complaints-Management/blob/master/client/src/doc/Homepage.PNG" width="600"/>
 
 ## Installing
 ```javascript
