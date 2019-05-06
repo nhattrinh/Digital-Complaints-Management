@@ -1,1 +1,1 @@
-cd client && npm run initial-start & cd server && npm run initial-dev
+cd client && npm run initial-start & cd server && npm run initial-start
