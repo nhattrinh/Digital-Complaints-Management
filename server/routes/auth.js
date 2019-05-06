@@ -8,7 +8,7 @@ const validator = require('validator');
 const User = require('../models/users');
 
 router.post('/register', (req, res) => {
-    let { name, email, password } = req.body;
+    let { name, email, password, clearance_code } = req.body;
 
     if (
             !validator.isEmpty(name) 
@@ -16,11 +16,20 @@ router.post('/register', (req, res) => {
         &&  !validator.isEmpty(password)
     ) {
         try {
-            const newUser = new User({
+            let newUser;
+            newUser = new User({
                 name: name,
                 email: email,
-                password: password
+                password: password,
             });
+
+            if (clearance_code && clearance_code === '11111')
+                newUser = new User({
+                    name: name,
+                    email: email,
+                    password: password,
+                    type: 'HR'
+                });
 
             User.createUser(newUser, (err, user) => {
                 if(err) {
@@ -69,11 +78,7 @@ router.post('/login', async (req, res) => {
     
                     return res.status(200).json({
                         token: 'Bearer ' + token,
-                        user: {
-                            _id: user._id,
-                            email: user.email,
-                            name: user.name
-                        }
+                        user
                     });
                 } else {
                     return res.status(500).json({

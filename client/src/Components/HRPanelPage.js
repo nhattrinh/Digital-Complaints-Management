@@ -4,6 +4,8 @@ import { MDBContainer } from "mdbreact";
 import Complaint from './Complaint'
 import axios from 'axios';
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom';
+
 import ResolvePost from './ResolvePost';
 
 class HRPanelPage extends Component {
@@ -84,6 +86,8 @@ class HRPanelPage extends Component {
 
 
   render(){
+    if (!this.state.user) return <Redirect to="/" />
+
     return (
     <MDBContainer>
         <MDBRow>
@@ -105,8 +109,9 @@ class HRPanelPage extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
-    user: state.auth.user.user
+    user: state.auth.user
   };
 };
 

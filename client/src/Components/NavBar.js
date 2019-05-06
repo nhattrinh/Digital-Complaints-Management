@@ -43,6 +43,7 @@ class NavBar extends Component {
   }
 
   render() {
+    console.log(this.state.user);
     if (!this.state.user) {
       return (
         <div>
