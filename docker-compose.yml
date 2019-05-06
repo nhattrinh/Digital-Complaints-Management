@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.5'
 services:
   server1:
       build: ./server
@@ -23,6 +23,6 @@ services:
           - server2
           - server3
       ports:
-          - '8080:8080'
+          - '3001:3001'
 volumes:
   server:
