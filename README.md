@@ -6,6 +6,9 @@ Digital Complaints Management is a human resouce application where employees can
 ### Our AWS EC2 Instance
 ![](github-resources/backend-visualization.png)
 
+## Homepage
+<img src="https://github.com/NhatTrinh/Digital-Complaints-Management/blob/master/client/src/doc/Homepage.PNG" width="600"/>
+
 ## Features
 These are some of the features we implemented in DCM:
 - [x] Authentication with register, sign in and sign out
@@ -14,9 +17,6 @@ These are some of the features we implemented in DCM:
 - [x] Employees can view all their complaints
 - [x] HR can view all the complaints in database
 - [x] HR can resolve any complaints
-
-## Homepage
-<img src="https://github.com/NhatTrinh/Digital-Complaints-Management/blob/master/client/src/doc/Homepage.PNG" width="600"/>
 
 ## Installing
 ```javascript
