@@ -22,7 +22,8 @@ const complaintSchema = new mongoose.Schema({
         default: false
     },
     responses: {
-        type: [{
+        type: Array,
+        /*
             creator_name: String,
             description: String,
             time_created: {
@@ -30,7 +31,7 @@ const complaintSchema = new mongoose.Schema({
                 default: Date.now()
             },
             user_id: String
-        }],
+         */
         default: []
     },
     time_created: {

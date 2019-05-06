@@ -71,9 +71,16 @@ class NavBar extends Component {
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
-                <NavItem>
-                  <NavLink style={styles.item} href="/resolve/">Your Complaints</NavLink>
-                </NavItem>
+                { 
+                  this.state.user.type === 'HR' ? 
+                    <NavItem>
+                      <NavLink style={styles.item} href="/resolve/">Your Complaints</NavLink>
+                    </NavItem> : 
+                    <NavItem>
+                      <NavLink style={styles.item} href="/hrpage/">View Submitted Complaints</NavLink>
+                    </NavItem>
+
+                }
                 <NavItem>
                   <NavLink style={styles.item} onClick={() => this.props.logout()} href="#">Logout</NavLink>
                 </NavItem>
