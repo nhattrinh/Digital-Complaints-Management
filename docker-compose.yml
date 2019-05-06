@@ -23,6 +23,6 @@ services:
           - server2
           - server3
       ports:
-          - '3001:3001'
+          - '80:80'
 volumes:
   server:
