@@ -74,11 +74,11 @@ class NavBar extends Component {
                 { 
                   this.state.user.type === 'HR' ? 
                     <NavItem>
-                      <NavLink style={styles.item} href="/resolve/">Your Complaints</NavLink>
-                    </NavItem> : 
-                    <NavItem>
                       <NavLink style={styles.item} href="/hrpage/">View Submitted Complaints</NavLink>
-                    </NavItem>
+                    </NavItem> :
+                    <NavItem>
+                      <NavLink style={styles.item} href="/resolve/">Your Complaints</NavLink>
+                    </NavItem> 
 
                 }
                 <NavItem>
