@@ -4,21 +4,24 @@ import { MDBContainer } from "mdbreact";
 import Complaint from './Complaint'
 import axios from 'axios';
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom';
+
+import ResolvePost from './ResolvePost';
 
 class Resolve extends Component {
   state = {
-    complaint: ''
+    complaint: '',
+    user: null
   };
 
   componentDidMount() {
     this.populateComplaints();
   }
 
-  populateComplaints() {
+  populateComplaints = () => {
     if (this.state.user) {
       axios.get(`http://localhost:3001/complain/get/${this.state.user._id}`)
         .then(res => {
-          console.log(res.data.complaints);
           this.setState({ complaints: res.data.complaints });
         })
         .catch(err => {
@@ -47,9 +50,20 @@ class Resolve extends Component {
               </MDBMedia>
                 <p style={{ fontSize: 20 }}>{ v.description }</p>
               <p>
-                by <a href="#!" className="font-weight-bold">{ v.creator_name }</a>, { new Date(v.time_created).toUTCString() }, { v.resolved ? 'Marked as Resolved': 'Unresolved' }
+                by <a href="#!" className="font-weight-bold">{ v.creator_name }</a>, { new Date(v.time_created).toLocaleDateString() }, { v.resolved ? 'Marked as Resolved': 'Unresolved' }
               </p>
               { this.renderResponses(v) }
+              { v.resolved ? <b style={{ color: 'green' }}>Marked as Resolved</b> : 
+                    <ResolvePost
+                      _id={v._id}
+                      creator_name={v.creator_name}
+                      user_id={this.state.user._id}
+                      populateComplaints={this.populateComplaints}
+                      resolved={v.resolved}
+                      user_name={this.state.user.name}
+                      user_type={this.state.user.type}
+                    />
+                }
           </MDBMedia>
         </MDBMedia>
         );
@@ -60,13 +74,13 @@ class Resolve extends Component {
   renderResponses(complaint) {
     return complaint.responses.map((v,i) => {
       return (
-        <MDBMedia key={i} className="mt-3" style={{border:" 2px groove", padding: "25px", marginBottom: "20px"}}>
+        <MDBMedia key={i} className="mt-3" style={{border:" 2px solid #d3a13b", padding: "15px", marginBottom: "20px", marginLeft: "5%", backgroundColor: "#fefcf8"}}>
             <MDBMedia left href="#" className="pr-3">
                 <MDBMedia object src="https://mdbootstrap.com/img/Photos/Others/placeholder4.jpg" alt="Generic placeholder image" />
             </MDBMedia>
             <MDBMedia body>
               { v.description }
-              <p>by <a href="#!" className="font-weight-bold">{ v.creator_name }</a>, { new Date(v.time_created).toUTCString() }</p>
+              <p>by <a href="#!" className="font-weight-bold">{ v.creator_name }</a>, { new Date(v.time_created).toLocaleDateString() }</p>
             </MDBMedia>
         </MDBMedia>
       );
@@ -74,8 +88,6 @@ class Resolve extends Component {
   }
 
   uploadComplaint = () => {
-    console.log(this);
-    console.log('aaaaa')
     let { user, complaint } = this.state;
     axios.post('http://localhost:3001/complain/create', {
       creator_name: user.name,
@@ -93,35 +105,19 @@ class Resolve extends Component {
   }
 
   render(){
+    if (!this.state.user) return <Redirect to="/" />
+    
     return (
     <MDBContainer>
         <MDBRow>
         <MDBCol md="12">
           <h1 className="h1-responsive font-weight-bold text-center my-5">Profile</h1>
           <MDBRow>
-            {/* <MDBCol md="6">
-                    <MDBView className="mx-auto">
-                      <img
-                        src="https://mdbootstrap.com/img/Photos/Avatars/img%20(26).jpg"
-                        alt=""
-                        className="rounded-circle img-fluid"
-                      />
-                    </MDBView>
-                    <h4 className="font-weight-bold mt-4">Truc Vo</h4>
-                    <h6 className="blue-text font-weight-bold my-3">
-                      Web Designer
-                    </h6>
-                    <p className="font-weight-normal">
-                      "About me Section Here"
-
-                    </p>
-            </MDBCol> */}
             <MDBCol>
               <Complaint
                 onChange={e => this.setState({ complaint: e.target.value })}
                 value={ this.state.complaint }
                 onClick={() => {
-                  console.log('clicked')
                   this.uploadComplaint();
                 }}
               />
@@ -131,7 +127,7 @@ class Resolve extends Component {
         </MDBRow>
 
         <MDBRow>
-          <MDBCol md="12">
+          <MDBCol md="12" style={{ marginBottom: '7em', marginTop: '7em' }}>
               <h2 className="h1-responsive font-weight-bold text-center my-5">
               Recent Complaints
               </h2>
@@ -145,7 +141,7 @@ class Resolve extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.auth.user.user
+    user: state.auth.user
   };
 };
 

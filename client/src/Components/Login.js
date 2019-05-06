@@ -7,18 +7,40 @@ import {
 import { GithubLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 import axios from 'axios';
 
+import { connect } from 'react-redux';
+
+import { login } from './redux/actions/auth';
+
 import '../App.css';
 
 
-export default class Login extends Component {
-  state = {
-    modal: false
+class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      modal: false,
+      email: '',
+      password: '',
+      user: null
+    };
   }
 
   toggle = () => {
     this.setState({
       modal: !this.state.modal
     });
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.user !== state.user) {
+      return {
+        user: props.user,
+        modal: false
+      };
+    }
+
+    return null;
   }
 
   render() {
@@ -44,12 +66,16 @@ export default class Login extends Component {
                       validate
                       error="wrong"
                       success="right"
+                      value={this.state.email}
+                      onChange={e => this.setState({ email: e.target.value })}
                     />
                     <MDBInput
                       label="Your password"
                       group
                       type="password"
                       validate
+                      value={this.state.password}
+                      onChange={e => this.setState({ password: e.target.value })}
                     />
                   </div>
                 </form>
@@ -65,7 +91,9 @@ export default class Login extends Component {
               </MDBCol>
           </MDBModalBody>
         <MDBModalFooter>
-          <MDBBtn onClick={this.toggle}
+          <MDBBtn onClick={() => {
+            this.props.login({ email: this.state.email, password: this.state.password });
+          }}
                     outline rounded
                     color='grey'
                     style={styles.button}>
@@ -90,3 +118,11 @@ const styles = {
     color: 'black'
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user
+  };
+};
+
+export default connect(mapStateToProps, { login })(Login);

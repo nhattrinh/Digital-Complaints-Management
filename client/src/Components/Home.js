@@ -19,7 +19,8 @@ class Home extends Component{
         axios.get(`http://localhost:3001/auth/find-by-google-id/${query.id}`)
           .then(res => {
             let { token, user } = res.data;
-            this.props.userLoggedIn({ user, token });
+            console.log(user);
+            this.props.userLoggedIn(user, token);
           })
           .catch(err => {
             console.log(err);
@@ -32,7 +33,7 @@ class Home extends Component{
           .then(res => {
             console.log(res.data);
             let { token, user } = res.data;
-            this.props.userLoggedIn({ user, token });
+            this.props.userLoggedIn(user, token);
           })
           .catch(err => {
             console.log(err);
