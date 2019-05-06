@@ -40,4 +40,5 @@ app.get('/', (req,res) => {
     res.send('Backend for Hotdogs Team');
 });
 
-app.listen(PORT || 3001, '172.31.28.170', () => console.log(`Server started on port ${PORT || 3001}`));
+app.listen(PORT || 3001, () => console.log(`Server started on port ${PORT || 3001}`));
+//app.listen(PORT || 3001, '172.31.28.170', () => console.log(`Server started on port ${PORT || 3001}`));
