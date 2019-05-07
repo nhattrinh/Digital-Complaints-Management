@@ -82,10 +82,10 @@ class Login extends Component {
               </MDBCol>
             </MDBRow>
               <MDBCol sm="8" className="offset-sm-2">
-                <a href="http://localhost:3001/auth/google">
+                <a href="http://localhost:8000/auth/google">
                   <GoogleLoginButton />
                 </a>
-                <a href="http://localhost:3001/auth/github">
+                <a href="http://localhost:8000/auth/github">
                   <GithubLoginButton />
                 </a>
               </MDBCol>
