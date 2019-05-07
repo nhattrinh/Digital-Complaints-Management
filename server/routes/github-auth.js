@@ -12,7 +12,7 @@ passport.use(new GitHubStrategy({
     ...GitHubCredentials
   },
   (accessToken, refreshToken, profile, done) => {
-    // findOrCreateUser(profile, cb);
+    findOrCreateUser(profile, done);
     process.nextTick(function () {
         return done(null, profile);
       });

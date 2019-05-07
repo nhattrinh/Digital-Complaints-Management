@@ -62,7 +62,7 @@ export default class ResolvePost extends Component {
             <form role="form">
             <br styles="clear:both" />
               <div className="form-group">
-              <textarea onChange={e => this.setState({ description: e.target.value })} className="form-control" type="textarea" id="subject" placeholder="Write your response here..." maxlength="140" rows="7"></textarea>
+              <textarea onChange={e => this.setState({ description: e.target.value })} className="form-control" type="textarea" id="subject" placeholder="Write your response here..." rows="7"></textarea>
               </div>
               <button onClick={this.uploadReply} type="button" className="btn btn-primary pull-right">Respond</button>
               { this.props.user_type === 'HR' && <button onClick={this.markResolved} type="button" className="btn btn-green pull-right">Mark as Resolved</button> }
