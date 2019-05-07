@@ -10,7 +10,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 # Port 8080 of the container will be exposed and then mapped to port
 # 8080 of our host machine via Compose
-EXPOSE 80
+EXPOSE 8000
 
 # Start Nginx when the container has been provisioned
 CMD ["nginx", "-g", "daemon off;"]

@@ -23,6 +23,18 @@ services:
           - server2
           - server3
       ports:
-          - '80:80'
+          - '8000:8000'
+  client:
+    build:
+      context: ./client/
+    command: npm start
+    volumes:
+      - ./client/:/usr/app
+      - /usr/app/node_modules
+    # depends_on:
+    #   - server
+    ports:
+      - "80:3000"
+      - "3000:3000"
 volumes:
   server:
