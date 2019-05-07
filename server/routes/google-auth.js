@@ -8,7 +8,7 @@ const jwt =             require('jsonwebtoken');
 const config = require('../config/database');
 const GoogleCredentials = require('../config/google');
 
-const callback_url = process.env.ENDPOINT_URL || "http://ec2-13-58-142-212.us-east-2.compute.amazonaws.com:8000";
+const callback_url = process.env.ENDPOINT_URL || "http://ec2-13-58-142-212.us-east-2.compute.amazonaws.com";
 
 passport.use(new GoogleStrategy({
   ...GoogleCredentials
@@ -47,7 +47,7 @@ router.get('/auth/google/callback',
             newUser.save();
         }
 
-        return res.redirect(`http://ec2-13-58-142-212.us-east-2.compute.amazonaws.com:3000?id=${sub}&new=${query === null ? 'true' : 'false'}`);
+        return res.redirect(`http://ec2-13-58-142-212.us-east-2.compute.amazonaws.com/?id=${sub}&new=${query === null ? 'true' : 'false'}`);
     }
     catch (err) {
       console.log(err);
