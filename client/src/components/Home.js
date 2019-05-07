@@ -16,7 +16,7 @@ class Home extends Component{
       var query = queryString.parse(this.props.location.search);
 
       if (query.id) {
-        axios.get(`http://ec2-13-58-142-212.us-east-2.compute.amazonaws.com:8000/auth/find-by-google-id/${query.id}`)
+        axios.get(`http://ec2-18-223-122-143.us-east-2.compute.amazonaws.com:8000/auth/find-by-google-id/${query.id}`)
           .then(res => {
             let { token, user } = res.data;
             console.log(user);
@@ -29,7 +29,7 @@ class Home extends Component{
             this.props.history.push("/");
           });
       } else if (query.githubID) {
-        axios.get(`http://ec2-13-58-142-212.us-east-2.compute.amazonaws.com:8000/auth/find-by-github-id/${query.githubID}`)
+        axios.get(`http://ec2-18-223-122-143.us-east-2.compute.amazonaws.com:8000/auth/find-by-github-id/${query.githubID}`)
           .then(res => {
             console.log(res.data);
             let { token, user } = res.data;
