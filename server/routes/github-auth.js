@@ -29,8 +29,8 @@ passport.deserializeUser((user, done) => {
 
 router.get('/auth/github', passport.authenticate('github', { scope: ['public_profile', 'public_repo', 'email'] }));
 
-router.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: 'http://localhost:3000/login' }), (req, res) => {
-    res.redirect(`http://localhost:3000?githubID=${req.user.id}`);
+router.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: 'http://ec2-18-223-122-143.us-east-2.compute.amazonaws.com/login' }), (req, res) => {
+    res.redirect(`http://ec2-18-223-122-143.us-east-2.compute.amazonaws.com/?githubID=${req.user.id}`);
 });
 
 const findOrCreateUser = async (profile, cb) => {

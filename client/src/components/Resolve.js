@@ -75,9 +75,6 @@ class Resolve extends Component {
     return complaint.responses.map((v,i) => {
       return (
         <MDBMedia key={i} className="mt-3" style={{border:" 2px solid #d3a13b", padding: "15px", marginBottom: "20px", marginLeft: "5%", backgroundColor: "#fefcf8"}}>
-            <MDBMedia left href="#" className="pr-3">
-                <MDBMedia object src="https://mdbootstrap.com/img/Photos/Others/placeholder4.jpg" alt="Generic placeholder image" />
-            </MDBMedia>
             <MDBMedia body>
               { v.description }
               <p>by <a href="#!" className="font-weight-bold">{ v.creator_name }</a>, { new Date(v.time_created).toLocaleDateString() }</p>
