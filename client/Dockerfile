@@ -1,31 +1,31 @@
-# FROM node:9.4.0
+FROM node:9.4.0
 
-# LABEL Nhat Trinh
+LABEL Nhat Trinh
 
-# # set working directory
-# WORKDIR /usr/app
+# set working directory
+WORKDIR /usr/app
 
-# COPY package*.json ./
+COPY package*.json ./
 
-# RUN npm install -qy
+RUN npm install -qy
 
-# COPY . .
+COPY . .
 
 # EXPOSE 3000
 
 # CMD ["npm", "start"]
 
 #Build environment
-FROM node:8-alpine as builder
+# FROM node:8-alpine as builder
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
-COPY package.json /usr/src/app/package.json
+# RUN mkdir -p /usr/src/app
+# WORKDIR /usr/src/app
+# ENV PATH /usr/src/app/node_modules/.bin:$PATH
+# COPY package.json /usr/src/app/package.json
 
-RUN npm install react-scripts -g --silent
-RUN npm install --production --silent
-COPY . /usr/src/app
+# RUN npm install react-scripts -g --silent
+# RUN npm install --production --silent
+# COPY . /usr/src/app
 RUN npm run build
 
 #Production environment
