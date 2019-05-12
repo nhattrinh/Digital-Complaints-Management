@@ -15,22 +15,28 @@
 
 # CMD ["npm", "start"]
 
-FROM tiangolo/node-frontend:10 as build-stage
-WORKDIR /usr/app
-COPY package*.json /usr/app/
-RUN npm install
-COPY ./ /usr/app/
+#Build environment
+FROM node:8-alpine as builder
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+COPY package.json /usr/src/app/package.json
+
+RUN npm install react-scripts -g --silent
+RUN npm install --production --silent
+COPY . /usr/src/app
 RUN npm run build
 
-# Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
-FROM nginx:1.15
+#Production environment
+FROM nginx:1.15-alpine
 
 RUN rm -rf /etc/nginx/conf.d
 COPY nginx /etc/nginx
+COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 
-COPY --from=build-stage /usr/app/build/ /usr/share/nginx/html
-# Copy the default nginx.conf provided by tiangolo/node-frontend
-
+RUN cat /etc/resolv.conf
+RUN cat /etc/hosts
 
 EXPOSE 3000
 CMD ["nginx", "-g", "daemon off;"]
