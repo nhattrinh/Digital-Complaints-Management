@@ -32,9 +32,9 @@ services:
     volumes:
       - ./client/:/usr/app
       - /usr/app/node_modules
-      - ./data/nginx:/etc/nginx/conf.d
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      - ./client/nginx/conf.d:/etc/nginx/conf.d
+      - ./client/certbot/conf:/etc/letsencrypt
+      - ./client/certbot/www:/var/www/certbot
     # depends_on:
     #   - server
     ports:
@@ -44,7 +44,7 @@ services:
   certbot:
     image: certbot/certbot
     volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      - ./client/certbot/conf:/etc/letsencrypt
+      - ./client/certbot/www:/var/www/certbot
 volumes:
   server:
