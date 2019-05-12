@@ -4,7 +4,7 @@ import { LOGIN, LOGOUT } from './types';
 
 export const register = data => {
     return dispatch => {
-        axios.post('http://localhost:8000/register', data)
+        axios.post('http://localhost:3001/register', data)
             .then(res => {
                 let { user, token } = res.data;
                 
@@ -24,7 +24,7 @@ export const register = data => {
 
 export const login = data => {
     return dispatch => {
-        axios.post('http://localhost:8000/login', data)
+        axios.post('http://localhost:3001/login', data)
             .then(res => {
                 let { user, token } = res.data;
 

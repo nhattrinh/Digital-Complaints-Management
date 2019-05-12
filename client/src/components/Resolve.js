@@ -20,7 +20,7 @@ class Resolve extends Component {
 
   populateComplaints = () => {
     if (this.state.user) {
-      axios.get(`http://localhost:8000/complain/get/${this.state.user._id}`)
+      axios.get(`http://localhost:3001/complain/get/${this.state.user._id}`)
         .then(res => {
           this.setState({ complaints: res.data.complaints });
         })
@@ -89,7 +89,7 @@ class Resolve extends Component {
 
   uploadComplaint = () => {
     let { user, complaint } = this.state;
-    axios.post('http://localhost:8000/complain/create', {
+    axios.post('http://localhost:3001/complain/create', {
       creator_name: user.name,
       description: complaint,
       _id: user._id

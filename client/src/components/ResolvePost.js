@@ -25,7 +25,7 @@ export default class ResolvePost extends Component {
   uploadReply = () => {
     let { user_id, _id, user_name } = this.props;
 
-    axios.post('http://localhost:8000/complain/reply', {
+    axios.post('http://localhost:3001/complain/reply', {
       user_id, _id, creator_name: user_name,
       description: this.state.description
     })
@@ -39,7 +39,7 @@ export default class ResolvePost extends Component {
   }
 
   markResolved = () => {
-    axios.post('http://localhost:8000/complain/mark-resolved', { _id: this.props._id })
+    axios.post('http://localhost:3001/complain/mark-resolved', { _id: this.props._id })
       .then(() => {
         this.props.populateComplaints();
       })
