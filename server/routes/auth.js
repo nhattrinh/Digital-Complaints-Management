@@ -72,7 +72,7 @@ router.post('/login', async (req, res) => {
                 if(isMatch) {
                     const token = jwt.sign({data: {
                         _id: user._id,
-                    }}, 'genioisacoolapp', {
+                    }}, 'dcmisacoolapp', {
                         expiresIn: 604800 // 1 week
                     });
     
@@ -94,6 +94,61 @@ router.post('/login', async (req, res) => {
             });
         }
     } else {
+        return res.status(403).json({
+            success: false,
+            msg: 'Invalid request, try again'
+        });
+    }
+});
+
+router.post('/auth/find-by-okta-id', async (req,res) => {
+    let { okta_id, name, email } = req.body;
+
+    try {
+        let user = await User.findOne({ okta_id }).exec();
+
+        if (!user) {
+            user = new User({
+                name,
+                email,
+                okta_id
+            });
+
+            user.save(() => {
+                const token = jwt.sign({data: {
+                    _id: user._id,
+                }}, 'dcmisacoolapp', {
+                    expiresIn: 604800 // 1 week
+                });
+
+                if(err) {
+                    return res.status(500).json({
+                        success: false, 
+                        msg: 'Failed to register User', errors: err
+                    });
+                } else {
+                    return res.status(200).json({
+                        success: true, 
+                        msg: 'User Registered', 
+                        user, token
+                    });
+                }
+            });
+        }
+
+        const token = jwt.sign({data: {
+            _id: user._id,
+        }}, 'dcmisacoolapp', {
+            expiresIn: 604800 // 1 week
+        });
+
+        return res.status(200).json({
+            success: true,
+            user, token
+        });
+
+    } catch(err) {
+        console.log(err);
         return res.status(403).json({
             success: false,
             msg: 'Invalid request, try again'

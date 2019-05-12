@@ -12,7 +12,7 @@ passport.use(new GitHubStrategy({
     ...GitHubCredentials
   },
   (accessToken, refreshToken, profile, done) => {
-    // findOrCreateUser(profile, cb);
+    findOrCreateUser(profile, done);
     process.nextTick(function () {
         return done(null, profile);
       });
@@ -27,13 +27,14 @@ passport.deserializeUser((user, done) => {
     done(null, user);
 });
 
-router.get('/auth/github', passport.authenticate('github', { scope: ['public_profile', 'public_repo', 'email'] }));
+router.get('/auth/github', passport.authenticate('github', { scope: ['public_profile', 'public_repo', 'email', 'access_token' ] }));
 
 router.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: 'http://ec2-18-223-122-143.us-east-2.compute.amazonaws.com/login' }), (req, res) => {
     res.redirect(`http://ec2-18-223-122-143.us-east-2.compute.amazonaws.com/?githubID=${req.user.id}`);
 });
 
 const findOrCreateUser = async (profile, cb) => {
+  console.log(profile);
     try {
         let user = await User.findOne({
             github_id: profile.id

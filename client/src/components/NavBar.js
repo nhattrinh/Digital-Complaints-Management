@@ -8,6 +8,7 @@ import {
     NavItem,
     NavLink,
 } from 'reactstrap';
+import { withAuth } from '@okta/okta-react';
 
 import { connect } from 'react-redux';
 
@@ -41,6 +42,11 @@ class NavBar extends Component {
 
     return null;
   }
+
+  oktaLogout = async () => {
+    this.props.auth.logout('/');
+  }
+
 
   render() {
     console.log(this.state.user);
@@ -83,7 +89,7 @@ class NavBar extends Component {
 
                 }
                 <NavItem>
-                  <NavLink style={styles.item} onClick={() => this.props.logout()} href="#">Logout</NavLink>
+                  <NavLink style={styles.item} onClick={async () => { this.props.logout(); this.props.auth.logout('/'); }} href="#">Logout</NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
@@ -113,4 +119,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { logout })(NavBar);
+export default connect(mapStateToProps, { logout })(withAuth(NavBar));

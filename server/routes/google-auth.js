@@ -8,7 +8,7 @@ const jwt =             require('jsonwebtoken');
 const config = require('../config/database');
 const GoogleCredentials = require('../config/google');
 
-const callback_url = process.env.ENDPOINT_URL || "http://ec2-18-223-122-143.us-east-2.compute.amazonaws.com";
+const callback_url = process.env.ENDPOINT_URL || "http://localhost:3000";
 
 passport.use(new GoogleStrategy({
   ...GoogleCredentials

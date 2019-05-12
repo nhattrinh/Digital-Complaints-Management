@@ -13,13 +13,33 @@ import SignUp from './SignUp';
 class Home extends Component{
   componentDidMount() {
     try {
+      let claims = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims;
+
+      if (claims) {
+        axios.post('http://localhost:3001/auth/find-by-okta-id/', {
+          okta_id: claims.sub,
+          name: claims.name,
+          email: claims.email
+        })
+          .then(res => {
+            let { token, user } = res.data;
+
+            this.props.userLoggedIn(user, token);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .finally(() => {
+            this.props.history.push("/");
+          });
+      }
+
       var query = queryString.parse(this.props.location.search);
 
       if (query.id) {
-        axios.get(`http://ec2-18-223-122-143.us-east-2.compute.amazonaws.com:8000/auth/find-by-google-id/${query.id}`)
+        axios.get(`http://localhost:3001/auth/find-by-google-id/${query.id}`)
           .then(res => {
             let { token, user } = res.data;
-            console.log(user);
             this.props.userLoggedIn(user, token);
           })
           .catch(err => {
@@ -29,9 +49,8 @@ class Home extends Component{
             this.props.history.push("/");
           });
       } else if (query.githubID) {
-        axios.get(`http://ec2-18-223-122-143.us-east-2.compute.amazonaws.com:8000/auth/find-by-github-id/${query.githubID}`)
+        axios.get(`http://localhost:3001/auth/find-by-github-id/${query.githubID}`)
           .then(res => {
-            console.log(res.data);
             let { token, user } = res.data;
             this.props.userLoggedIn(user, token);
           })

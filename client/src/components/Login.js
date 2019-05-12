@@ -6,6 +6,7 @@ import {
 } from 'mdbreact';
 import { GithubLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 import axios from 'axios';
+import { withAuth } from '@okta/okta-react';
 
 import { connect } from 'react-redux';
 
@@ -22,7 +23,8 @@ class Login extends Component {
       modal: false,
       email: '',
       password: '',
-      user: null
+      user: null,
+      authenticated: null
     };
   }
 
@@ -30,6 +32,15 @@ class Login extends Component {
     this.setState({
       modal: !this.state.modal
     });
+  }
+
+  oktaLogin = async () => {
+    // Redirect to '/' after login
+    this.props.auth.login('/');
+  }
+
+  oktaLogout = async () => {
+    this.props.auth.logout('/');
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -82,12 +93,13 @@ class Login extends Component {
               </MDBCol>
             </MDBRow>
               <MDBCol sm="8" className="offset-sm-2">
-                <a href="http://ec2-18-223-122-143.us-east-2.compute.amazonaws.com:8000/auth/google">
+                <a href="http://localhost:3001/auth/google">
                   <GoogleLoginButton />
                 </a>
-                <a href="http://ec2-18-223-122-143.us-east-2.compute.amazonaws.com:8000/auth/github">
+                <a href="http://localhost:3001/auth/github">
                   <GithubLoginButton />
                 </a>
+                <div className="btn btn-primary" style={{ width: '21em' }} onClick={this.oktaLogin}>Login with Okta</div>
               </MDBCol>
           </MDBModalBody>
         <MDBModalFooter>
@@ -125,4 +137,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login })(withAuth(Login));

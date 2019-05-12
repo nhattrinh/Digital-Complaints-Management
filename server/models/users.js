@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema({
         default: "employee",
         type: String
     },  // can be of either type HR or employee
-    github_id: String
+    github_id: String,
+    okta_id: String
 });
 
 
