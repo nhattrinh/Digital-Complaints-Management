@@ -1,43 +1,32 @@
-FROM node:9.4.0
+# FROM node:9.4.0
 
-LABEL Nhat Trinh
+# LABEL Nhat Trinh
 
-# set working directory
-WORKDIR /usr/app
+# # set working directory
+# WORKDIR /usr/app
 
-COPY package*.json ./
+# COPY package*.json ./
 
-RUN npm install -qy
+# RUN npm install -qy
 
-COPY . .
-
-EXPOSE 3000
-
-CMD ["npm", "start"]
-
-# Production
-#Build environment
-# FROM node:8-alpine as builder
-
-# RUN mkdir -p /usr/src/app
-# WORKDIR /usr/src/app
-# ENV PATH /usr/src/app/node_modules/.bin:$PATH
-# COPY package.json /usr/src/app/package.json
-
-# RUN npm install react-scripts -g --silent
-# RUN npm install --production --silent
-# COPY . /usr/src/app
-# RUN npm run build
-
-# #Production environment
-# FROM nginx:1.15-alpine
-
-# RUN rm -rf /etc/nginx/conf.d
-# COPY nginx /etc/nginx
-# COPY --from=builder /usr/src/app/build /usr/share/nginx/html
-
-# RUN cat /etc/resolv.conf
-# RUN cat /etc/hosts
+# COPY . .
 
 # EXPOSE 3000
-# CMD ["nginx", "-g", "daemon off;"]
+
+# CMD ["npm", "start"]
+
+FROM tiangolo/node-frontend:10 as build-stage
+WORKDIR /usr/app
+COPY package*.json /usr/app/
+RUN npm install
+COPY ./ /usr/app/
+RUN npm run build
+
+# Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
+FROM nginx:1.15
+COPY --from=build-stage /usr/app/build/ /usr/share/nginx/html
+# Copy the default nginx.conf provided by tiangolo/node-frontend
+COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 3000
+CMD ["nginx", "-g", "daemon off;"]
