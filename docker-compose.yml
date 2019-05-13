@@ -24,6 +24,9 @@ services:
           - server3
       ports:
           - '8000:8000'
+          - "80:80"
+          - "443:443"
+          - "3000:80"
   client:
     build:
       context: ./client/
