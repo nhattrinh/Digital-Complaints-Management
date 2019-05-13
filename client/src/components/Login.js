@@ -93,10 +93,10 @@ class Login extends Component {
               </MDBCol>
             </MDBRow>
               <MDBCol sm="8" className="offset-sm-2">
-                <a href="http://localhost:3001/auth/google">
+                <a href={`http://${process.env.API_URL}/auth/google`}>
                   <GoogleLoginButton />
                 </a>
-                <a href="http://localhost:3001/auth/github">
+                <a href={`http://${process.env.API_URL}/auth/github`}>
                   <GithubLoginButton />
                 </a>
                 <div className="btn btn-primary" style={{ width: '21em' }} onClick={this.oktaLogin}>Login with Okta</div>

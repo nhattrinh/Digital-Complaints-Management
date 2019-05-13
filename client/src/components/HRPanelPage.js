@@ -18,7 +18,7 @@ class HRPanelPage extends Component {
   }
 
   populateComplaints = () => {
-    axios.get('http://localhost:3001/complain/get/all')
+    axios.get(`http://${process.env.API_URL}/complain/get/all`)
       .then(res => {
         console.log(res.data)
         this.setState({ complaints: res.data.complaints });
