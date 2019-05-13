@@ -28,6 +28,7 @@ class App extends Component {
   persistConfig = configureStore();
 
   render() {
+    console.log(process.env);
     return (
       <Provider store={this.persistConfig.store}>
         <PersistGate loading={null} persistor={this.persistConfig.persistor}>
