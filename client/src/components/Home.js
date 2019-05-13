@@ -79,8 +79,8 @@ class Home extends Component{
   }
 
   render(){
-    parseLocation();
-    
+    this.parseLocation();
+
     return(
       <div className="background-image" style = {styles.homeStyle}>
             <div style = {styles.content}>
