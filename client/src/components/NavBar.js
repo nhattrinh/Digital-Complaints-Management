@@ -89,7 +89,13 @@ class NavBar extends Component {
 
                 }
                 <NavItem>
-                  <NavLink style={styles.item} onClick={async () => { this.props.logout(); this.props.auth.logout('/'); }} href="#">Logout</NavLink>
+                  <NavLink style={styles.item} onClick={async () => { 
+                    let claims = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims;
+                    if (!claims || claims === undefined)
+                      this.props.logout(); 
+                    else 
+                      this.props.auth.logout('/'); 
+                  }} href="#">Logout</NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
