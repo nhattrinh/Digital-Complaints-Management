@@ -20,7 +20,7 @@ class Resolve extends Component {
 
   populateComplaints = () => {
     if (this.state.user) {
-      axios.get(`http://ec2-18-188-90-66.us-east-2.compute.amazonaws.com:8000/get/${this.state.user._id}`)
+      axios.get(`http://ec2-18-188-90-66.us-east-2.compute.amazonaws.com:8000/complain/get/${this.state.user._id}`)
         .then(res => {
           this.setState({ complaints: res.data.complaints });
         })
