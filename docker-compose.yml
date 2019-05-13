@@ -35,9 +35,9 @@ services:
     volumes:
       - ./client/:/usr/app
       - /usr/app/node_modules
-    ports:
-      - "80:80"
-      - "443:443"
-      - "3000:80"
+    # ports:
+    #   - "80:80"
+    #   - "443:443"
+    #   - "3000:80"
 volumes:
   server:
