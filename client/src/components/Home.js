@@ -36,9 +36,6 @@ class Home extends Component{
 
       var query = queryString.parse(this.props.location.search);
 
-      console.log(query);
-      console.log(this.props.location);
-
       if (query.id) {
         axios.get(`http://ec2-18-188-90-66.us-east-2.compute.amazonaws.com:8000/auth/find-by-google-id/${query.id}`)
           .then(res => {
@@ -78,6 +75,7 @@ class Home extends Component{
   }
 
   render(){
+    console.log(this.props.location);
     return(
       <div className="background-image" style = {styles.homeStyle}>
             <div style = {styles.content}>
