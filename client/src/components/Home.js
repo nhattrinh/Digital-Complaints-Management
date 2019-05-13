@@ -15,7 +15,7 @@ class Home extends Component{
     try {
       let claims = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims;
 
-      if (claims) {
+      if (claims && claims !== undefined) {
         axios.post(`http://ec2-18-188-90-66.us-east-2.compute.amazonaws.com:8000/auth/find-by-okta-id/`, {
           okta_id: claims.sub,
           name: claims.name,
@@ -35,6 +35,9 @@ class Home extends Component{
       }
 
       var query = queryString.parse(this.props.location.search);
+
+      console.log(query);
+      console.log(this.props.location);
 
       if (query.id) {
         axios.get(`http://ec2-18-188-90-66.us-east-2.compute.amazonaws.com:8000/auth/find-by-google-id/${query.id}`)
