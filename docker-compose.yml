@@ -15,18 +15,6 @@ services:
       tty: true
       volumes:
         - './server/src:/code-output-dir'
-  loadbalancer:
-      build: ./load-balancer
-      tty: true
-      links:
-          - server1
-          - server2
-          - server3
-      ports:
-          - '8000:8000'
-          - "80:80"
-          - "443:443"
-          - "3000:80"
   client:
     build:
       context: ./client/
@@ -35,6 +23,19 @@ services:
     volumes:
       - ./client/:/usr/app
       - /usr/app/node_modules
+  loadbalancer:
+      build: ./load-balancer
+      tty: true
+      links:
+          - server1
+          - server2
+          - server3
+          - client
+      ports:
+          - '8000:8000'
+          - "80:80"
+          - "443:443"
+          - "3000:80"
     # ports:
     #   - "80:80"
     #   - "443:443"
