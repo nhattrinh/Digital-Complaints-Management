@@ -16,7 +16,7 @@ class Home extends Component{
       let claims = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims;
 
       if (claims) {
-        axios.post(`http://${process.env.API_URL}/auth/find-by-okta-id/`, {
+        axios.post(`http://ec2-18-188-90-66.us-east-2.compute.amazonaws.com:8000/auth/find-by-okta-id/`, {
           okta_id: claims.sub,
           name: claims.name,
           email: claims.email
@@ -37,7 +37,7 @@ class Home extends Component{
       var query = queryString.parse(this.props.location.search);
 
       if (query.id) {
-        axios.get(`http://${process.env.API_URL}/auth/find-by-google-id/${query.id}`)
+        axios.get(`http://ec2-18-188-90-66.us-east-2.compute.amazonaws.com:8000/auth/find-by-google-id/${query.id}`)
           .then(res => {
             let { token, user } = res.data;
             this.props.userLoggedIn(user, token);
@@ -49,7 +49,7 @@ class Home extends Component{
             this.props.history.push("/");
           });
       } else if (query.githubID) {
-        axios.get(`http://${process.env.API_URL}/auth/find-by-github-id/${query.githubID}`)
+        axios.get(`http://ec2-18-188-90-66.us-east-2.compute.amazonaws.com:8000/auth/find-by-github-id/${query.githubID}`)
           .then(res => {
             let { token, user } = res.data;
             this.props.userLoggedIn(user, token);

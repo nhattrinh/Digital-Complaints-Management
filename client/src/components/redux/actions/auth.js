@@ -4,7 +4,7 @@ import { LOGIN, LOGOUT } from './types';
 
 export const register = data => {
     return dispatch => {
-        axios.post(`http://${process.env.API_URL}/register`, data)
+        axios.post(`http://ec2-18-188-90-66.us-east-2.compute.amazonaws.com:8000/register`, data)
             .then(res => {
                 let { user, token } = res.data;
                 
@@ -24,7 +24,7 @@ export const register = data => {
 
 export const login = data => {
     return dispatch => {
-        axios.post(`http://${process.env.API_URL}/login`, data)
+        axios.post(`http://ec2-18-188-90-66.us-east-2.compute.amazonaws.com:8000/login`, data)
             .then(res => {
                 let { user, token } = res.data;
 
