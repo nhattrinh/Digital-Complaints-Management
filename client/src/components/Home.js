@@ -34,36 +34,40 @@ class Home extends Component{
           });
       }
 
-      var query = queryString.parse(this.props.location.search);
-
-      if (query.id) {
-        axios.get(`http://ec2-18-188-90-66.us-east-2.compute.amazonaws.com:8000/auth/find-by-google-id/${query.id}`)
-          .then(res => {
-            let { token, user } = res.data;
-            this.props.userLoggedIn(user, token);
-          })
-          .catch(err => {
-            console.log(err);
-          })
-          .finally(() => {
-            this.props.history.push("/");
-          });
-      } else if (query.githubID) {
-        axios.get(`http://ec2-18-188-90-66.us-east-2.compute.amazonaws.com:8000/auth/find-by-github-id/${query.githubID}`)
-          .then(res => {
-            let { token, user } = res.data;
-            this.props.userLoggedIn(user, token);
-          })
-          .catch(err => {
-            console.log(err);
-          })
-          .finally(() => {
-            this.props.history.push("/");
-          });
-      }
+      this.parseLocation();
     }
     catch(err) {
       console.log(err);
+    }
+  }
+
+  parseLocation = () => {
+    var query = queryString.parse(this.props.location.search);
+
+    if (query.id) {
+      axios.get(`http://ec2-18-188-90-66.us-east-2.compute.amazonaws.com:8000/auth/find-by-google-id/${query.id}`)
+        .then(res => {
+          let { token, user } = res.data;
+          this.props.userLoggedIn(user, token);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.props.history.push("/");
+        });
+    } else if (query.githubID) {
+      axios.get(`http://ec2-18-188-90-66.us-east-2.compute.amazonaws.com:8000/auth/find-by-github-id/${query.githubID}`)
+        .then(res => {
+          let { token, user } = res.data;
+          this.props.userLoggedIn(user, token);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.props.history.push("/");
+        });
     }
   }
 
@@ -75,7 +79,8 @@ class Home extends Component{
   }
 
   render(){
-    console.log(this.props.location);
+    parseLocation();
+    
     return(
       <div className="background-image" style = {styles.homeStyle}>
             <div style = {styles.content}>
